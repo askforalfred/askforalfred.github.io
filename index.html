@@ -1,5 +1,138 @@
-<html>
-<body>
-<center><h1>Coming soon...</h1></center>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-8024377-10"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-8024377-10');
+    </script>
+
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>ALFRED -- A Benchmark for Interpreting Grounded Instructions for Everyday Tasks</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">ALFRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Paper</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Data (coming soon)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Leaderboard (coming soon)</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main role="main">
+
+  <!-- Main jumbotron -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">ALFRED <img src="images/butler.png" width=60></h1>
+      <h3>A Benchmark for Interpreting Grounded Instructions for Everyday Tasks</h3>
+      <h6>
+      <table>
+      <tr>
+      <td width=200><a href="https://mohitshridhar.com/">Mohit Shridhar</a></td>
+      <td width=200><a href="https://jessethomason.com/">Jesse Thomason</a></td>
+      <td width=200><a href="https://homes.cs.washington.edu/~xkcd/">Daniel Gordon</a></td>
+      <td width=200><a href="https://yonatanbisk.com/">Yonatan Bisk</a></td>
+      </tr>
+      <tr>
+      <td><a href="https://allenai.org/team.html">Winson Han</a></td>
+      <td><a href="https://allenai.org/team/roozbehm/">Roozbeh Mottaghi</a></td>
+      <td><a href="https://www.cs.washington.edu/people/faculty/lsz">Luke Zettlemoyer</a></td>
+      <td><a href="https://homes.cs.washington.edu/~fox/">Dieter Fox</a><br>
+      </tr></table>
+      </h6>
+
+      <p> <b>ALFRED</b> (<b>A</b>ction <b>L</b>earning <b>F</b>rom <b>R</b>ealistic <b>E</b>nvironments and <b>D</b>irectives), is a new benchmark for learning a mapping from natural language instructions and egocentric vision to sequences of actions for household tasks.  Long composition rollouts with non-reversible state changes are among  the  phenomena  we  include  to  shrink  the  gap  between  research  benchmarks  and  real-world  applications. <!--ALFRED consists of expert demonstrations in interactive visual  environments  for  25k  natural  language  directives.These directives contain both high-level goals like “Rinse off a mug and place it in the coffee maker.”  and low-level language instructions like “Walk to the coffee maker on the right.” ALFRED tasks are more complex in terms of sequence length,  action  space,  and  language  than  existing vision-and-language task datasets.--></p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Read our paper on ArXiv&raquo;</a></p>
+      <div class="card bg-light">
+        <div class="card-body">
+          <p class="card-text">
+            <code ><font color="black">
+                @Unpublished{ALFRED,<br>
+                &nbsp;&nbsp;title={{ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks}},<br>
+                &nbsp;&nbsp;author={Mohit Shridhar and Jesse Thomason and Daniel Gordon and Yonatan Bisk and Winson Han and Roozbeh Mottaghi and  Luke Zettlemoyer and Dieter Fox},<br>
+                &nbsp;&nbsp;year={2019},<br>
+                }
+            </font></code>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+     <center>   <iframe width="560" height="315" src="https://www.youtube.com/embed/1XoRLNmXffo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+    <hr>
+
+  </div> <!-- /container -->
+
+</main>
+
+<footer class="container">
+  <center><table>
+    <tr><td>
+            <img src="images/UW.jpg" height=100>&nbsp;
+            <img src="images/cmu.jpg" height=100>&nbsp;
+            <img src="images/microsoft.jpg" height=100>&nbsp;
+            <img src="images/AI2.png" height=100>&nbsp;
+            <img src="images/nvidia.jpg" height=100>&nbsp;
+    </td><tr>
+  </table></center>
+  <br>
+  <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script></body>
 </html>
+
