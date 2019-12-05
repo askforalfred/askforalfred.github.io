@@ -1,17 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-8024377-10"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'UA-8024377-10');
+
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-8024377-10', 'auto');
+      ga('create', 'UA-25750945-3', 'auto', 'jesseTracker');
+        ga('send', 'pageview');
     </script>
-
-
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,6 +23,23 @@
 
     <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <script>
+    /**
+    * Function that captures a click on an outbound link in Analytics.
+    * This function takes a valid URL string as an argument, and uses that URL string
+    * as the event label. Setting the transport method to 'beacon' lets the hit be sent
+    * using 'navigator.sendBeacon' in browser that support it.
+    */
+    var captureOutboundLink = function(url) {
+       ga('send', 'event', 'outbound', 'click', url, {
+       'transport': 'beacon'
+       });
+       // 'hitCallback': function(){document.location = url;}
+       //});
+       return false;
+    }
+  </script>
 
     <style>
       .bd-placeholder-img {
@@ -79,21 +95,21 @@
       <h6>
       <table>
       <tr>
-      <td width=200><a href="https://mohitshridhar.com/">Mohit Shridhar</a></td>
-      <td width=200><a href="https://jessethomason.com/">Jesse Thomason</a></td>
-      <td width=200><a href="https://homes.cs.washington.edu/~xkcd/">Daniel Gordon</a></td>
-      <td width=200><a href="https://yonatanbisk.com/">Yonatan Bisk</a></td>
+      <td width=200><a href="https://mohitshridhar.com/" onclick="captureOutboundLink('https://mohitshridhar.com/');">Mohit Shridhar</a></td>
+      <td width=200><a href="https://jessethomason.com/" onclick="captureOutboundLink('https://jessethomason.com/');">Jesse Thomason</a></td>
+      <td width=200><a href="https://homes.cs.washington.edu/~xkcd/" onclick="captureOutboundLink('https://homes.cs.washington.edu/~xkcd/');">Daniel Gordon</a></td>
+      <td width=200><a href="https://yonatanbisk.com/" onclick="captureOutboundLink('https://yonatanbisk.com/');">Yonatan Bisk</a></td>
       </tr>
       <tr>
-      <td><a href="https://allenai.org/team.html">Winson Han</a></td>
-      <td><a href="https://allenai.org/team/roozbehm/">Roozbeh Mottaghi</a></td>
-      <td><a href="https://www.cs.washington.edu/people/faculty/lsz">Luke Zettlemoyer</a></td>
-      <td><a href="https://homes.cs.washington.edu/~fox/">Dieter Fox</a><br>
+      <td><a href="https://allenai.org/team.html" onclick="captureOutboundLink('https://allenai.org/team.html');">Winson Han</a></td>
+      <td><a href="https://allenai.org/team/roozbehm/" onclick="captureOutboundLink('https://allenai.org/team/roozbehm/');">Roozbeh Mottaghi</a></td>
+      <td><a href="https://www.cs.washington.edu/people/faculty/lsz" onclick="captureOutboundLink('https://www.cs.washington.edu/people/faculty/lsz');">Luke Zettlemoyer</a></td>
+      <td><a href="https://homes.cs.washington.edu/~fox/" onclick="captureOutboundLink('https://homes.cs.washington.edu/~fox/');">Dieter Fox</a><br>
       </tr></table>
       </h6>
 
       <p> <b>ALFRED</b> (<b>A</b>ction <b>L</b>earning <b>F</b>rom <b>R</b>ealistic <b>E</b>nvironments and <b>D</b>irectives), is a new benchmark for learning a mapping from natural language instructions and egocentric vision to sequences of actions for household tasks.  Long composition rollouts with non-reversible state changes are among  the  phenomena  we  include  to  shrink  the  gap  between  research  benchmarks  and  real-world  applications. <!--ALFRED consists of expert demonstrations in interactive visual  environments  for  25k  natural  language  directives.These directives contain both high-level goals like “Rinse off a mug and place it in the coffee maker.”  and low-level language instructions like “Walk to the coffee maker on the right.” ALFRED tasks are more complex in terms of sequence length,  action  space,  and  language  than  existing vision-and-language task datasets.--></p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Read our paper on ArXiv&raquo;</a></p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="captureOutboundLink('#');">Read our paper on ArXiv&raquo;</a></p>
       <div class="card bg-light">
         <div class="card-body">
           <p class="card-text">
