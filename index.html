@@ -10,6 +10,7 @@
       ga('create', 'UA-8024377-10', 'auto');
       ga('create', 'UA-25750945-3', 'auto', 'jesseTracker');
         ga('send', 'pageview');
+        ga('jesseTracker.send', 'pageview');
     </script>
 
     <meta charset="utf-8">
@@ -33,6 +34,9 @@
     */
     var captureOutboundLink = function(url) {
        ga('send', 'event', 'outbound', 'click', url, {
+       'transport': 'beacon'
+       });
+       ga('jesseTracker.send', 'event', 'outbound', 'click', url, {
        'transport': 'beacon'
        });
        // 'hitCallback': function(){document.location = url;}
