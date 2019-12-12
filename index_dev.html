@@ -94,13 +94,13 @@
           if (vid == null) {
             choose_example();
           }
-          view_example();
+          view_example(jd);
         });
       }
 
       function new_random_example() {
         choose_example();
-        view_example();
+        view_example(splits_data);
       }
 
       function choose_example() {
@@ -124,22 +124,22 @@
         vid = (training_size * s) + i
       }
 
-      function view_example() {
+      function view_example(jd) {
         S = vid / training_size;
         i = vid % training_size;
 
         // Report example (debug).
-        alert(splits_data[S][i]["repeat_idx"]);
-        alert(splits_data[S][i]["task"]);
+        alert(jd[S][i]["repeat_idx"]);
+        alert(jd[S][i]["task"]);
 
         // Show video.
         var video = document.getElementById('expert_video');
-        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
+        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + jd[S][i]["task"] + "/video.mp4";
         video.play();
 
         // Populate high and low level text.
-        $('#highlevel').html(splits_data[S][i]["repeat_idx"] + " high level");
-        $('#lowlevel').html(splits_data[S][i]["repeat_idx"] + " low level");
+        $('#highlevel').html(jd[S][i]["repeat_idx"] + " high level");
+        $('#lowlevel').html(jd[S][i]["repeat_idx"] + " low level");
 
         // Get plink
         $('#plink').html(window.location.href + "?vid=" + vid);
