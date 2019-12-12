@@ -113,8 +113,9 @@
       }
 
       function view_example() {
-        s = vid / training_size;
-        i = vid % training_size;
+        var s = vid / training_size;
+        var i = vid % training_size;
+        var S = 0;
         if (s == 0) {
           S = "train";
         }
