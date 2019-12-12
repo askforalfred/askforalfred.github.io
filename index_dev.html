@@ -125,13 +125,6 @@
         else if (s == 2) {
           S = "valid_unseen"
         }
-        alert(s);
-        alert(i);
-        alert(S);
-
-        // Report example (debug).
-        alert(splits_data[S][i]["repeat_idx"]);
-        alert(splits_data[S][i]["task"]);
 
         // Show video.
         var video = document.getElementById('expert_video');
@@ -143,7 +136,10 @@
         $('#lowlevel').html(splits_data[S][i]["repeat_idx"] + " low level");
 
         // Get plink
-        $('#plink').html(window.location.href + "?vid=" + vid);
+        var url_whole = window.location.href;
+        var res = url_whole.split("?");
+        var url_base = res[0];
+        $('#plink').html(url_base + "?vid=" + vid);
       }
 
     </script>
