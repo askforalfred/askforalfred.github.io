@@ -84,11 +84,17 @@
       var vid = 0;
 
       function load_data() {
-        $.getJSON('splits.json', function(jd) {
-          splits_data = jd;
-          training_size = jd.train.length;
-          val_s_size = jd.valid_seen.length;
-          val_u_size = jd.valid_unseen.length;
+        $.ajax({
+          url: 'splits.json',
+          dataType: 'json',
+          async: false,
+          data: myData,
+          success: function(jd) {
+            splits_data = jd;
+            training_size = jd.train.length;
+            val_s_size = jd.valid_seen.length;
+            val_u_size = jd.valid_unseen.length;
+          }
         });
 
         vid = findGetParameter("vid");
