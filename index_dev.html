@@ -107,8 +107,10 @@
         // Report example (debug).
         alert(S);
         alert(i);
-        alert(splits_data[S][i]["task"]["repeat_idx"]);
-        alert(splits_data[S][i]["task"]["task"]);
+        alert(splits_data[S][i]["repeat_idx"]);
+        alert(splits_data[S][i]["task"]);
+        alert(splits_data.train[0].repeat_idx);
+        alert(splits_data.train[0].task);
 
         // Show video.
         var video = document.getElementById('expert_video');
