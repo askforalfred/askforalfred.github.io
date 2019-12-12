@@ -197,27 +197,7 @@
 
 <main role="main">
 
-  <center>
-  <table width=600>
-  <tr><td>
-  <div>
-    <button class="btn" onclick="new_random_example()">Show Random Example</button>
-    <table class="table table-striped">
-    <tr><td></td><td>
-      <video width="320" height="240" controls id="expert_video" type="video/mp4">
-      Your browser does not support the video tag.
-      </video>
-    </td></tr>
-    <tr><td><b>High Level Instruction</b></td><td id="highlevel"></td></tr>
-    <tr><td><b>Low Level Instructions</b></td><td id="lowlevel"></td></tr>
-    <tr><td><b>Permanent Link</b></td><td id="plink"></td></tr>
-    </table>
-  </div>
-  </td></tr>
-  </table>
-  </center>
-
-  <!-- Main jumbotron -->
+    <!-- Main jumbotron -->
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">ALFRED <img src="images/butler.png" width=60></h1>
@@ -241,31 +221,65 @@
       <p> <b>ALFRED</b> (<b>A</b>ction <b>L</b>earning <b>F</b>rom <b>R</b>ealistic <b>E</b>nvironments and <b>D</b>irectives), is a new benchmark for learning a mapping from natural language instructions and egocentric vision to sequences of actions for household tasks.  Long composition rollouts with non-reversible state changes are among  the  phenomena  we  include  to  shrink  the  gap  between  research  benchmarks  and  real-world  applications. <!--ALFRED consists of expert demonstrations in interactive visual  environments  for  25k  natural  language  directives.These directives contain both high-level goals like “Rinse off a mug and place it in the coffee maker.”  and low-level language instructions like “Walk to the coffee maker on the right.” ALFRED tasks are more complex in terms of sequence length,  action  space,  and  language  than  existing vision-and-language task datasets.--></p>
       <p><a class="btn btn-primary btn-lg" href="https://arxiv.org/abs/1912.01734" role="button" target="_blank" onclick="captureOutboundLink('https://arxiv.org/abs/1912.01734');">Read our paper on ArXiv&raquo;</a> 
           <a class="btn btn-success btn-lg" href="https://github.com/askforalfred/alfred" role="button" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred');">GitHub&raquo;</a></p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6 d-flex justify-content-left">
       <div class="card bg-light">
         <div class="card-body">
           <p class="card-text">
             <code ><font color="black">
-                @misc{ALFRED,<br>
-                &nbsp;&nbsp;title={{ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks}},<br>
-                &nbsp;&nbsp;author={Mohit Shridhar and Jesse Thomason and Daniel Gordon and Yonatan Bisk and Winson Han and Roozbeh Mottaghi and  Luke Zettlemoyer and Dieter Fox},<br>
-                &nbsp;&nbsp;year={2019},<br>
-                &nbsp;&nbsp;url = {https://arxiv.org/abs/1912.01734}<br>
+                @misc{ALFRED19,<br>
+                &nbsp;&nbsp;title&nbsp;={{ALFRED: A Benchmark for Interpreting Grounded <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instructions for Everyday Tasks}},<br>
+                &nbsp;&nbsp;author={Mohit Shridhar and Jesse Thomason and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Daniel Gordon and Yonatan Bisk and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winson Han and Roozbeh Mottaghi and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Luke Zettlemoyer and Dieter Fox},<br>
+                &nbsp;&nbsp;year&nbsp;=&nbsp;{2019},<br>
+                &nbsp;&nbsp;url &nbsp;= {https://arxiv.org/abs/1912.01734}<br>
                 }
             </font></code>
           </p>
         </div>
       </div>
     </div>
+    <div class="col-sm-6 d-flex justify-content-right">
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/1XoRLNmXffo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
   </div>
+</div>
+
+</main>
 
   <div class="container">
-    <!-- Example row of columns -->
-     <center>   <iframe width="560" height="315" src="https://www.youtube.com/embed/1XoRLNmXffo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+    <center>
+    <h2>Data Explorer</h2>
+
+    <table width=700>
+    <tr><td>
+    <div>
+      <button class="btn btn-info btn-md" onclick="new_random_example()">Show Random Example</button>
+      <table class="table table-striped">
+      <tr><td></td><td>
+        <video width="320" height="240" controls id="expert_video" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+      </td></tr>
+      <tr><td><b>High Level Instruction</b></td><td id="highlevel"></td></tr>
+      <tr><td><b>Low Level Instructions</b></td><td id="lowlevel"></td></tr>
+      <tr><td><b>Permanent Link</b></td><td id="plink"></td></tr>
+      </table>
+    </div>
+    </td></tr>
+    </table>
+    </center>
+
     <hr>
 
   </div> <!-- /container -->
 
-</main>
+
 
 <footer class="container">
   <center><table>
