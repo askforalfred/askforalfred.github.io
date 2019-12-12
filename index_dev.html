@@ -109,12 +109,10 @@
         alert(i);
         alert(splits_data[S][i]["repeat_idx"]);
         alert(splits_data[S][i]["task"]);
-        alert(splits_data.train[0].repeat_idx);
-        alert(splits_data.train[0].task);
 
         // Show video.
         var video = document.getElementById('expert_video');
-        video.setAttribute("src", splits_data[S][i]["task"]["task"]);
+        video.setAttribute("src", "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"]);
       }
     </script>
 
