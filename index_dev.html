@@ -77,10 +77,6 @@
           training_size = jd.train.length;
           val_s_size = jd.valid_seen.length;
           val_u_size = jd.valid_unseen.length;
-          alert(splits_data);
-          alert(training_size);
-          alert(val_s_size);
-          alert(val_u_size);
         });
       }
 
@@ -101,18 +97,16 @@
           I = val_u_size;
           S = "valid_unseen"
         }
-        alert(I);
         var i = Math.floor((Math.random() * I));
 
         // Report example (debug).
-        alert(S);
-        alert(i);
         alert(splits_data[S][i]["repeat_idx"]);
         alert(splits_data[S][i]["task"]);
 
         // Show video.
         var video = document.getElementById('expert_video');
-        video.setAttribute("src", "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"]);
+        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
+        video.play();
       }
     </script>
 
@@ -155,8 +149,7 @@
     <button onclick="view_example()">View</button>
     <table>
     <tr><td>
-      <video width="320" height="240" controls id="expert_video">
-        <source src="movie.mp4" type="video/mp4">
+      <video width="320" height="240" controls id="expert_video" type="video/mp4">
       Your browser does not support the video tag.
       </video>
     </td></tr>
