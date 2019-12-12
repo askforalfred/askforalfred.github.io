@@ -65,11 +65,23 @@
     </style>
 
     <script>
+      function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [];
+        var items = location.search.substr(1).split("&");
+        for (var index = 0; index < items.length; index++) {
+            tmp = items[index].split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        }
+        return result;
+      }
+
       // Run the data viewer.
       var splits_data = 0;
       var training_size = 0;
       var val_s_size = 0;
       var val_u_size = 0;
+      var vid = 0;
 
       function load_data() {
         $.getJSON('splits.json', function(jd) {
@@ -78,9 +90,20 @@
           val_s_size = jd.valid_seen.length;
           val_u_size = jd.valid_unseen.length;
         });
+
+        vid = findGetParameter("vid");
+        if (vid == null) {
+          choose_example();
+        }
+        view_example();
       }
 
-      function view_example() {
+      function new_random_example() {
+        choose_example();
+        view_example();
+      }
+
+      function choose_example() {
         // Choose a random example.
         var s = Math.floor((Math.random() * 3));
         var I = -1;
@@ -98,6 +121,12 @@
           S = "valid_unseen"
         }
         var i = Math.floor((Math.random() * I));
+        vid = (training_size * s) + i
+      }
+
+      function view_example() {
+        S = vid / training_size;
+        i = vid % training_size;
 
         // Report example (debug).
         alert(splits_data[S][i]["repeat_idx"]);
@@ -111,7 +140,11 @@
         // Populate high and low level text.
         $('#highlevel').html(splits_data[S][i]["repeat_idx"] + " high level");
         $('#lowlevel').html(splits_data[S][i]["repeat_idx"] + " low level");
+
+        // Get plink
+        $('#plink').html(window.location.href + "?vid=" + vid);
       }
+
     </script>
 
 
@@ -150,7 +183,7 @@
 <main role="main">
 
   <div>
-    <button onclick="view_example()">Show Random Example</button>
+    <button class="btn" onclick="new_random_example()">Show Random Example</button>
     <table class="table table-striped">
     <tr><td colspan="2">
       <video width="320" height="240" controls id="expert_video" type="video/mp4">
@@ -159,6 +192,7 @@
     </td></tr>
     <tr><td><b>High Level Instruction</b></td><td id="highlevel"></td></tr>
     <tr><td><b>Low Level Instructions</b></td><td id="lowlevel"></td></tr>
+    <tr><td>Permanent Link</td><td id="plink"></td></tr>
     </table>
   </div>
 
