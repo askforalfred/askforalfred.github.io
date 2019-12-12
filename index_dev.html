@@ -84,23 +84,18 @@
       var vid = 0;
 
       function load_data() {
-        $.ajax({
-          url: 'splits.json',
-          dataType: 'json',
-          async: false,
-          success: function(jd) {
-            splits_data = jd;
-            training_size = jd.train.length;
-            val_s_size = jd.valid_seen.length;
-            val_u_size = jd.valid_unseen.length;
-          }
-        });
+        $.getJSON('splits.json', function(jd) {
+          splits_data = jd;
+          training_size = jd.train.length;
+          val_s_size = jd.valid_seen.length;
+          val_u_size = jd.valid_unseen.length;
 
-        vid = findGetParameter("vid");
-        if (vid == null) {
-          choose_example();
-        }
-        view_example();
+          vid = findGetParameter("vid");
+          if (vid == null) {
+            choose_example();
+          }
+          view_example();
+        });
       }
 
       function new_random_example() {
