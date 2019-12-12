@@ -107,6 +107,10 @@
         var video = document.getElementById('expert_video');
         video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
         video.play();
+
+        // Populate high and low level text.
+        $('#highlevel').html(splits_data[S][i]["repeat_idx"] + " high level");
+        $('#lowlevel').html(splits_data[S][i]["repeat_idx"] + " low level");
       }
     </script>
 
@@ -146,15 +150,15 @@
 <main role="main">
 
   <div>
-    <button onclick="view_example()">View</button>
-    <table>
-    <tr><td>
+    <button onclick="view_example()">Show Random Example</button>
+    <table class="table table-striped">
+    <tr><td colspan="2">
       <video width="320" height="240" controls id="expert_video" type="video/mp4">
       Your browser does not support the video tag.
       </video>
     </td></tr>
-    <tr><td id="highlevel"></td></tr>
-    <tr><td id="lowlevel"></td></tr>
+    <tr><td><b>High Level Instruction</b></td><td id="highlevel"></td></tr>
+    <tr><td><b>Low Level Instructions</b></td><td id="lowlevel"></td></tr>
     </table>
   </div>
 
