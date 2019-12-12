@@ -107,7 +107,12 @@
         // Report example (debug).
         alert(S);
         alert(i);
-        alert(splits_data[S][i]);
+        alert(splits_data[S][i]["task"]["repeat_idx"]);
+        alert(splits_data[S][i]["task"]["task"]);
+
+        // Show video.
+        var video = document.getElementById('expert_video');
+        video.setAttribute("src", splits_data[S][i]["task"]["task"]);
       }
     </script>
 
@@ -148,6 +153,16 @@
 
   <div>
     <button onclick="view_example()">View</button>
+    <table>
+    <tr><td>
+      <video width="320" height="240" controls id="expert_video">
+        <source src="movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+    </td></tr>
+    <tr><td id="highlevel"></td></tr>
+    <tr><td id="lowlevel"></td></tr>
+    </table>
   </div>
 
   <!-- Main jumbotron -->
