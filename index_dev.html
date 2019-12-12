@@ -113,7 +113,7 @@
       }
 
       function view_example() {
-        var s = vid / training_size;
+        var s = Math.floor(vid / training_size);
         var i = vid % training_size;
         var S = 0;
         if (s == 0) {
