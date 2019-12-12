@@ -141,6 +141,7 @@
         // Show video.
         var video = document.getElementById('expert_video');
         video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
+        vid.playbackRate = 2;
         video.play();
 
         // Retrieve text from JSON.
@@ -200,7 +201,7 @@
     <button class="btn" onclick="new_random_example()">Show Random Example</button>
     <table class="table table-striped">
     <tr><td></td><td>
-      <video width="320" height="240" controls id="expert_video" type="video/mp4" playbackRate="2">
+      <video width="320" height="240" controls id="expert_video" type="video/mp4">
       Your browser does not support the video tag.
       </video>
     </td></tr>
