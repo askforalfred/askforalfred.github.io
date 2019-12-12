@@ -99,6 +99,7 @@
       }
 
       function new_random_example() {
+        captureOutboundLink('random');
         choose_example();
         view_example();
       }
@@ -171,7 +172,7 @@
   </head>
 
 
-  <body onload="load_data()">
+  <body onload="load_data()" style="padding-top: 10px;">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="#">ALFRED</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
