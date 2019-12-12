@@ -143,9 +143,14 @@
         video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
         video.play();
 
-        // Populate high and low level text.
-        $('#highlevel').html(splits_data[S][i]["repeat_idx"] + " high level");
-        $('#lowlevel').html(splits_data[S][i]["repeat_idx"] + " low level");
+        // Retrieve text from JSON.
+        var aidx = splits_data[S][i]["repeat_idx"];
+        var traj_json_url = "https://raw.githubusercontent.com/askforalfred/alfred/master/data/json_2.1.0/" + S + "/" + splits_data[S][i]["task"] + "/traj_data.json";
+        $.getJSON(traj_json_url, function(jd) {
+          // Populate high and low level text.
+          $('#highlevel').html(jd.turk_annotations.anns[aidx].task_desc);
+          $('#lowlevel').html(jd.turk_annotations.anns[aidx].high_descs.join("<br/>"));
+        });
 
         // Get plink
         var url_whole = window.location.href;
