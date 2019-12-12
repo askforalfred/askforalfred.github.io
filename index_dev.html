@@ -94,13 +94,13 @@
           if (vid == null) {
             choose_example();
           }
-          view_example(jd);
+          view_example();
         });
       }
 
       function new_random_example() {
         choose_example();
-        view_example(splits_data);
+        view_example();
       }
 
       function choose_example() {
@@ -108,38 +108,35 @@
         var s = Math.floor((Math.random() * 3));
         var I = -1;
         var S = 0;
-        if (s == 0) {
-          I = training_size;
-          S = "train";
-        }
-        else if (s == 1) {
-          I = val_s_size;
-          S = "valid_seen";
-        }
-        else if (s == 2) {
-          I = val_u_size;
-          S = "valid_unseen"
-        }
         var i = Math.floor((Math.random() * I));
         vid = (training_size * s) + i
       }
 
-      function view_example(jd) {
-        S = vid / training_size;
+      function view_example() {
+        s = vid / training_size;
         i = vid % training_size;
+        if (s == 0) {
+          S = "train";
+        }
+        else if (s == 1) {
+          S = "valid_seen";
+        }
+        else if (s == 2) {
+          S = "valid_unseen"
+        }
 
         // Report example (debug).
-        alert(jd[S][i]["repeat_idx"]);
-        alert(jd[S][i]["task"]);
+        alert(splits_data[S][i]["repeat_idx"]);
+        alert(splits_data[S][i]["task"]);
 
         // Show video.
         var video = document.getElementById('expert_video');
-        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + jd[S][i]["task"] + "/video.mp4";
+        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
         video.play();
 
         // Populate high and low level text.
-        $('#highlevel').html(jd[S][i]["repeat_idx"] + " high level");
-        $('#lowlevel').html(jd[S][i]["repeat_idx"] + " low level");
+        $('#highlevel').html(splits_data[S][i]["repeat_idx"] + " high level");
+        $('#lowlevel').html(splits_data[S][i]["repeat_idx"] + " low level");
 
         // Get plink
         $('#plink').html(window.location.href + "?vid=" + vid);
