@@ -167,38 +167,29 @@
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.3/examples/jumbotron/jumbotron.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
   </head>
 
 
   <body onload="load_data()" style="padding-top: 10px;">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">ALFRED</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">ALFRED</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://arxiv.org/abs/1912.01734" target="_blank" onclick="captureOutboundLink('https://arxiv.org/abs/1912.01734');">Paper</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://github.com/askforalfred/alfred/tree/master/data" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred/tree/master/data');">Data</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://github.com/askforalfred/alfred" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred');":>Code</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Leaderboard (coming soon)</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+      <div class="collapse navbar-collapse" id="navbars">
+        <div class="navbar-nav">
+         <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+         <a class="nav-item nav-link" href="https://arxiv.org/abs/1912.01734" target="_blank" onclick="captureOutboundLink('https://arxiv.org/abs/1912.01734');">Paper</a>
+         <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred/tree/master/data" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred/tree/master/data');">Data</a>
+         <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred');":>Code</a>
+         <a class="nav-item nav-link disabled" href="#">Leaderboard (coming soon)</a>
+        </div>
+      </div>
+    </nav>
 
 <main role="main">
 
