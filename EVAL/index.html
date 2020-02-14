@@ -4,13 +4,13 @@
 
     <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-8024377-10', 'auto');
       ga('create', 'UA-25750945-3', 'auto', 'jesseTracker');
-        ga('send', 'pageview');
-        ga('jesseTracker.send', 'pageview');
+      ga('send', 'pageview');
+      ga('jesseTracker.send', 'pageview');
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -25,145 +25,44 @@
     <link rel="canonical" href="http://askforalfred.com/EVAL">
 
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-  <script>
-    /**
-    * Function that captures a click on an outbound link in Analytics.
-    * This function takes a valid URL string as an argument, and uses that URL string
-    * as the event label. Setting the transport method to 'beacon' lets the hit be sent
-    * using 'navigator.sendBeacon' in browser that support it.
-    */
-    var captureOutboundLink = function(url) {
-       ga('send', 'event', 'outbound', 'click', url, {
-       'transport': 'beacon'
-       });
-       ga('jesseTracker.send', 'event', 'outbound', 'click', url, {
-       'transport': 'beacon'
-       });
-       // 'hitCallback': function(){document.location = url;}
-       //});
-       return false;
-    }
-  </script>
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <script>
-      function findGetParameter(parameterName) {
-        var result = null,
-            tmp = [];
-        var items = location.search.substr(1).split("&");
-        for (var index = 0; index < items.length; index++) {
-            tmp = items[index].split("=");
-            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+      /**
+      * Function that captures a click on an outbound link in Analytics.
+      * This function takes a valid URL string as an argument, and uses that URL string
+      * as the event label. Setting the transport method to 'beacon' lets the hit be sent
+      * using 'navigator.sendBeacon' in browser that support it.
+       */
+        var captureOutboundLink = function(url) {
+          ga('send', 'event', 'outbound', 'click', url, {
+            'transport': 'beacon'
+          });
+          ga('jesseTracker.send', 'event', 'outbound', 'click', url, {
+            'transport': 'beacon'
+          });
+          // 'hitCallback': function(){document.location = url;}
+          //});
+          return false;
         }
-        return result;
-      }
-
-      // Run the data viewer.
-      var splits_data = 0;
-      var training_size = 0;
-      var val_s_size = 0;
-      var val_u_size = 0;
-      var vid = null;
-
-      function load_data() {
-        $.getJSON('splits.json', function(jd) {
-          splits_data = jd;
-          training_size = jd.train.length;
-          val_s_size = jd.valid_seen.length;
-          val_u_size = jd.valid_unseen.length;
-
-          vid = findGetParameter("vid");
-          if (vid == null) {
-            choose_example();
-          }
-          view_example();
-        });
-      }
-
-      function new_random_example() {
-        captureOutboundLink('random');
-        choose_example();
-        view_example();
-      }
-
-      function choose_example() {
-        // Choose a random example.
-        var s = Math.floor((Math.random() * 3));
-        var I = -1;
-        var S = 0;
-        if (s == 0) {
-          S = "train";
-          I = training_size;
-        }
-        else if (s == 1) {
-          S = "valid_seen";
-          I = val_s_size;
-        }
-        else if (s == 2) {
-          S = "valid_unseen"
-          I = val_u_size;
-        }
-        var i = Math.floor((Math.random() * I));
-        vid = (training_size * s) + i
-      }
-
-      function view_example() {
-        var s = Math.floor(vid / training_size);
-        var i = vid % training_size;
-        var S = 0;
-        if (s == 0) {
-          S = "train";
-        }
-        else if (s == 1) {
-          S = "valid_seen";
-        }
-        else if (s == 2) {
-          S = "valid_unseen"
-        }
-
-        // Show video.
-        var video = document.getElementById('expert_video');
-        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
-        video.playbackRate = 2;
-        video.defaultPlaybackRate = 2;
-        video.play();
-
-        // Retrieve text from JSON.
-        var aidx = splits_data[S][i]["repeat_idx"];
-        var traj_json_url = "https://raw.githubusercontent.com/askforalfred/alfred/master/data/json_2.1.0/" + S + "/" + splits_data[S][i]["task"] + "/traj_data.json";
-        $.getJSON(traj_json_url, function(jd) {
-          // Populate high and low level text.
-          $('#highlevel').html(jd.turk_annotations.anns[aidx].task_desc);
-          $('#lowlevel').html(jd.turk_annotations.anns[aidx].high_descs.join("<br/>"));
-        });
-
-        // Get plink
-        var url_whole = window.location.href;
-        var res = url_whole.split("?");
-        var url_base = res[0];
-        $('#plink').html(url_base + "?vid=" + vid);
-      }
-
     </script>
 
+    <style>
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+    </style>
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.3/examples/jumbotron/jumbotron.css" rel="stylesheet">
@@ -173,130 +72,170 @@
   </head>
 
 
-  <body onload="load_data()" style="padding-top: 10px;">
+  <body style="padding-top: 10px;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">EVAL @ ECCV 2020</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                                                   data-target="#navbars" aria-controls="navbars" 
+                                                                          aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbars">
         <div class="navbar-nav">
-         <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-         <a class="nav-item nav-link" href="https://askforalfred.com" onclick="captureOutboundLink('https://askforalfred.com');">ALFRED</a>
-         <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred/tree/master/data" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred/tree/master/data');">Data</a>
-         <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred');":>Code</a>
+          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="https://askforalfred.com" onclick="captureOutboundLink('https://askforalfred.com');">ALFRED</a>
+          <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred/tree/master/data" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred/tree/master/data');">Data</a>
+          <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred');":>Code</a>
         </div>
       </div>
     </nav>
 
-<main role="main">
+    <main role="main">
 
     <!-- Main jumbotron -->
-  <div class="jumbotron">
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">EVAL @ ECCV 2020<img src="../images/butler.png" width=60></h1>
+        <h3><b>E</b>mbodied <b>V</b>ision, <b>A</b>ctions & <b>L</b>anguage Workshop</h3>
+        <h6>
+
+          <div class="table">
+            <div class="row">
+              <div clas="col-sm-10">
+                <a href="https://yonatanbisk.com/" target="_blank" 
+                                                   onclick="captureOutboundLink('https://yonatanbisk.com/');">Yonatan Bisk 
+                                                   <img src="logos/cmu_logo.png" height=15></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://jessethomason.com/" target="_blank" 
+                                                     onclick="captureOutboundLink('https://jessethomason.com/');">Jesse Thomason 
+                                                     <img src="logos/uw_logo.png" height=15></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://mohitshridhar.com/" target="_blank" 
+                                                     onclick="captureOutboundLink('https://mohitshridhar.com/');">Mohit Shridhar 
+                                                     <img src="logos/uw_logo.png" height=15></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://cpaxton.github.io/" target="_blank" 
+                                                     onclick="captureOutboundLink('https://cpaxton.github.io/');">Chris Paxton 
+                                                     <img src="logos/nvidia_logo.jpg" height=15></a>
+              </div> <!-- /col -->
+            </div> <!-- /row -->
+
+            <div class="row">
+              <div clas="col-sm-10">
+                <a href="https://panderson.me/" target="_blank" 
+                                                onclick="captureOutboundLink('https://panderson.me/');">Peter Anderson 
+                                                <img src="logos/google_logo.png" height=15></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="http://roozbehm.info/" target="_blank" 
+                                                onclick="captureOutboundLink('http://roozbehm.info/');">Roozbeh Mottaghi 
+                                                <img src="logos/AI2_logo.png" height=15></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://prior.allenai.org/people" target="_blank" 
+                                                           onclick="captureOutboundLink('https://prior.allenai.org/people');">Eric Kolve 
+                                                           <img src="logos/AI2_logo.png" height=15></a>
+              </div> <!-- /col -->
+            </div> <!-- /row -->
+          </div> <!-- /table -->
+        </h6>
+
+        <br>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <br>
+              <p> 
+              The focus of this workshop is on embodied visual tasks that require the grounding of language to actions in real-world settings. Specifically, we want to draw focus to challenges like partial observability, continuous state spaces, and irrevocable actions for language-guided agents in visual environments.
+              Such challenges are not captured by current datasets for grounding and embodiment [<a href="https://bringmeaspoon.org/">1</a>, <a href="https://danielgordon10.wixsite.com/home/projects/iqa-visual-question-answering-in-interactive-environments">2</a>, <a href="https://embodiedqa.org/">3</a>].
+              </p>
+            </div> <!-- col 7-->
+            <div class="col-md-6">
+              <ul><b>Key Topics</b>
+                <li>Egocentric and Robotic vision</li>
+                <li>Language Grounding</li>
+                <li>Navigation and Motion Planning</li>
+                <li>Interactive/Causal Reasoning</li>
+                <li>Learning from Demonstration</li>
+                <li>Task and Symbolic Planning</li>
+                <li>Deep Reinforcement Learning</li>
+                <li>Commonsense Reasoning</li>
+              </ul>
+            </div> <!-- col 5-->
+          </div> <!-- row -->
+          <div class="row">
+            <div class="col-md-10">
+              To encourage research in embodied vision & language, the workshop includes a benchmark challenge based <a href="http://askforalfred.com">ALFRED</a>.
+              This benchmark captures real-world complexities like object state changes, and requires long-horizon planning. This workshop, and corresponding challenge, exist to bring together Vision, Robotics, and NLP researchers to tackle the unique challenges of this three-field intersection that are often avoided when focusing only on vision-and-language or vision-and-robotics (i.e., `embodied AI').
+            </div> <!-- /col -->
+          </div> <!-- /row -->
+        </div> <!-- container -->
+    </main>
+
     <div class="container">
-      <h1 class="display-3">EVAL @ ECCV 2020<img src="../images/butler.png" width=60></h1>
-      <h3><b>E</b>mbodied <b>V</b>ision, <b>A</b>ctions & <b>L</b>anguage Workshop</h3>
-      <h6>
-      <table>
-      <tr>
-      <td width=200><a href="https://yonatanbisk.com/" target="_blank" onclick="captureOutboundLink('https://yonatanbisk.com/');">Yonatan Bisk <img src="logos/cmu_logo.png" height=15></a></td>
-      <td width=200><a href="https://jessethomason.com/" target="_blank" onclick="captureOutboundLink('https://jessethomason.com/');">Jesse Thomason <img src="logos/uw_logo.png" height=15></a></td>
-      <td width=200><a href="https://mohitshridhar.com/" target="_blank" onclick="captureOutboundLink('https://mohitshridhar.com/');">Mohit Shridhar <img src="logos/uw_logo.png" height=15></a></td>
-      </tr>
-      <tr>
-      <td><a href="https://cpaxton.github.io/" target="_blank" onclick="captureOutboundLink('https://cpaxton.github.io/');">Chris Paxton <img src="logos/nvidia_logo.jpg" height=15></a></td>
-      <td><a href="https://panderson.me/" target="_blank" onclick="captureOutboundLink('https://panderson.me/');">Peter Anderson <img src="logos/google_logo.png" height=15></a></td>
-      <td><a href="http://roozbehm.info/" target="_blank" onclick="captureOutboundLink('http://roozbehm.info/');">Roozbeh Mottaghi <img src="logos/AI2_logo.png" height=15></a></td>
-      <td><a href="https://prior.allenai.org/people" target="_blank" onclick="captureOutboundLink('https://prior.allenai.org/people');">Eric Kolve <img src="logos/AI2_logo.png" height=15></a></td>
-      </tr></table>
-      </h6>
+      <div class="row">
+        <div class="col-md-5">
+          <h4>Submission Details</h4>
+          <p><b>Contributed Papers</b><br> <a href="https://eccv2020.eu/wp-content/uploads/2020/01/eccv2020kit-1.zip">Standard ECCV 2020 format</a></p>
+          <p><b>Challenge Papers</b> <br>Participants are required to upload their model to  our  evaluation  server.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the challenge will be frozen for the camera ready on July 17</p>
+        </div> <!-- col 5 -->
 
-      <p> 
-        The focus of this workshop is on embodied visual tasks that require the grounding of language to actions in real-world settings. Specifically, we want to draw focus to challenges like partial observability, continuous state spaces, and irrevocable actions for language-guided agents in visual environments.
-        Such challenges are not captured by current datasets for grounding and embodiment [<a href="https://bringmeaspoon.org/">1</a>, <a href="https://danielgordon10.wixsite.com/home/projects/iqa-visual-question-answering-in-interactive-environments">2</a>, <a href="https://embodiedqa.org/">3</a>].
-        Therefore, to encourage research in embodied vision & language and further push the state-of-the-art, the workshop includes a benchmark challenge based <a href="http://askforalfred.com">ALFRED</a>.
-        This benchmark captures real-world complexities like object state changes, and requires long-horizon planning. This workshop, and corresponding challenge, exist to bring together Vision, Robotics, and NLP researchers to tackle the unique challenges of this three-field intersection that are often avoided when focusing only on vision-and-language or vision-and-robotics (i.e., `embodied AI').
-</p>
-</center>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-5">
-      <ul><b>Key Topics</b>
-        <li>Egocentric and Robotic vision</li>
-        <li>Language Grounding</li>
-        <li>Navigation and Motion Planning</li>
-        <li>Interactive/Causal Reasoning</li>
-        <li>Learning from Demonstration</li>
-        <li>Task and Symbolic Planning</li>
-        <li>Deep Reinforcement Learning</li>
-        <li>Commonsense Reasoning</li>
-      </ul>
-    </div>
-    <div class="col-md-5">
-      <p><b>Workshop Papers</b> <a href="https://eccv2020.eu/wp-content/uploads/2020/01/eccv2020kit-1.zip">Standard ECCV 2020 format</a></p>
-      <p><b>Challenge Submissions</b> Participants are required to upload their model to  our  evaluation  server.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the challenge will be frozen for the camera ready on July 17</p>
-  </div>
-</div>
-
-</main>
-
-  <div class="container">
-    <center>
-    <h2>Important Dates</h2>
-      <table>
-        <tr><td width=300>Paper submission </td><td> May 1, 2020 </td></tr>
-        <tr><td>Author response  </td><td> May 21, 2020  </td></tr>
-        <tr><td>Notification     </td><td> June 1, 2020 </td></tr>
-        <tr><td colspan=2><hr></td></tr>
-        <tr><td>Challenge System descriptions  </td><td>   June 15, 2020</td></tr>
-        <tr><td>Challenge System Notifications </td><td>   July 1, 2020</td></tr>
-        <tr><td>Final Leaderboard numbers      </td><td>   July  17, 2020</td></tr>
-      </table>
-
-    </center>
+        <div class="col-md-5">
+          <h4>Important Dates</h4>
+          <table>
+            <tr><td colspan=2><b>Contributed Papers</b></td></tr>
+            <tr><td width=200>Submission </td><td width=150> May 1, '20 </td></tr>
+            <tr><td>Author response  </td><td> May 21, '20  </td></tr>
+            <tr><td>Notification     </td><td> June 1, '20 </td></tr>
+            <tr><td colspan=2><hr><b>Challenge Papers</b></td></tr>
+            <tr><td>System descriptions  </td><td>   June 15, '20</td></tr>
+            <tr><td>Notification         </td><td>   July 1, '20</td></tr>
+            <tr><td>Final numbers        </td><td>   July  17, '20</td></tr>
+          </table>
+        </div> <!-- col 5 --> 
+      </div> <!-- row -->
+    </div> <!-- container -->
     <hr>
-  </div> <!-- /container -->
-
-  <div class="container">
-    <center>
-    <h2>Tentative Schedule</h2>
-      <table width=600>
-        <tr bgcolor="#e0e0e0"><td>09:00 -- 09:30 </td><td colspan=3> Introductory remarks and Challenge results</td></tr>
-        <tr><td>09:30 -- 10:15 </td><td> <a href="http://www.cs.utexas.edu/~grauman/" target="_blank" onclick="captureOutboundLink('http://www.cs.utexas.edu/~grauman/')">Kristen Grauman</a></td><td>  UT Austin </td><td> Vision </td></tr>
-        <tr bgcolor="#e0e0e0"><td>10:15 -- 10:30 </td><td colspan=2> Coffee Break </td><td> </td></tr>
-        <tr><td>10:30 -- 11:15 </td><td> Invited Speaker </td><td>   </td><td> Robotics </td></tr>
-        <tr><td>11:15 -- 12:00 </td><td> Invited Speaker </td><td>   </td><td> Vision</td></tr>
-        <tr bgcolor="#e0e0e0"><td>12:00 -- 13:00 </td><td colspan=2> Lunch </td><td> </td></tr>
-        <tr><td>13:00 -- 13:45 </td><td> Invited Speaker </td><td>   </td><td> Robotics </td></tr>
-        <tr><td>13:45 -- 14:30 </td><td> <a href="http://www.jasonbaldridge.com/" target="_blank" onclick="captureOutboundLink('http://jasonbaldridge.com')">Jason Baldridge</a> </td><td> Google  </td><td> Language</td></tr>
-        <tr bgcolor="#e0e0e0"><td>14:30 -- 15:30 </td><td colspan=2> Coffee and Poster Session </td><td> </td></tr>
-        <tr bgcolor="#e0e0e0"><td>15:30 -- 16:00 </td><td colspan=2> Challenge Winner Award/Talk </td><td> </td></tr>
-        <tr><td>16:00 -- 16:45 </td><td> <a href="http://www.cs.cmu.edu/~abhinavg/" target="_blank" onclick="captureOutboundLink('http://www.cs.cmu.edu/~abhinavg/')">Abhinav Gupta</a> </td><td> FAIR & CMU </td><td> Vision </td></tr>
-        <tr bgcolor="#e0e0e0"><td>16:45 -- 17:00 </td><td colspan=2> Closing Remarks </td><td> </td></tr>
-
-      </table>
-
-    </center>
-
-    <hr>
-  </div> <!-- /container -->
 
 
-<footer class="container">
-  <center><table>
-    <tr><td>
-            <img src="../images/cmu.jpg" height=100>&nbsp;
-            <img src="../images/UW.jpg" height=100>&nbsp;
-            <img src="../images/nvidia.jpg" height=100>&nbsp;
-            <img src="../images/google.png" height=100>&nbsp;
-            <img src="../images/AI2.png" height=100>&nbsp;
-    </td><tr>
-  </table></center>
-  <br>
-  <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
-</footer>
-</body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10">
+          <center>
+            <h2>Tentative Schedule</h2>
+            <table width=500>
+              <tr bgcolor="#e0e0e0"><td>09:00 -- 09:30 </td><td colspan=3> Introductory remarks and Challenge results</td></tr>
+              <tr><td>09:30 -- 10:15 </td><td> <a href="http://www.cs.utexas.edu/~grauman/" target="_blank" onclick="captureOutboundLink('http://www.cs.utexas.edu/~grauman/')">Kristen Grauman</a></td><td>  UT Austin </td><td> Vision </td></tr>
+              <tr bgcolor="#e0e0e0"><td>10:15 -- 10:30 </td><td colspan=2> Coffee Break </td><td> </td></tr>
+              <tr><td>10:30 -- 11:15 </td><td> Invited Speaker </td><td>   </td><td> Robotics </td></tr>
+              <tr><td>11:15 -- 12:00 </td><td> Invited Speaker </td><td>   </td><td> Vision</td></tr>
+              <tr bgcolor="#e0e0e0"><td>12:00 -- 13:00 </td><td colspan=2> Lunch </td><td> </td></tr>
+              <tr><td>13:00 -- 13:45 </td><td> Invited Speaker </td><td>   </td><td> Robotics </td></tr>
+              <tr><td>13:45 -- 14:30 </td><td> <a href="http://www.jasonbaldridge.com/" target="_blank" onclick="captureOutboundLink('http://jasonbaldridge.com')">Jason Baldridge</a> </td><td> Google  </td><td> Language</td></tr>
+              <tr bgcolor="#e0e0e0"><td>14:30 -- 15:30 </td><td colspan=2> Coffee and Poster Session </td><td> </td></tr>
+              <tr bgcolor="#e0e0e0"><td>15:30 -- 16:00 </td><td colspan=2> Challenge Winner Award/Talk </td><td> </td></tr>
+              <tr><td>16:00 -- 16:45 </td><td> <a href="http://www.cs.cmu.edu/~abhinavg/" target="_blank" onclick="captureOutboundLink('http://www.cs.cmu.edu/~abhinavg/')">Abhinav Gupta</a> </td><td> FAIR & CMU </td><td> Vision </td></tr>
+              <tr bgcolor="#e0e0e0"><td>16:45 -- 17:00 </td><td colspan=2> Closing Remarks </td><td> </td></tr>
+            </table>
+          </center>
+        </div> <!-- /col -->
+      </div> <!-- /row -->
+      <hr>
+    </div> <!-- /container -->
+
+
+    <footer class="container">
+      <center><table>
+          <tr><td>
+              <img src="../images/cmu.jpg" height=100>&nbsp;
+              <img src="../images/UW.jpg" height=100>&nbsp;
+              <img src="../images/nvidia.jpg" height=100>&nbsp;
+              <img src="../images/google.png" height=100>&nbsp;
+              <img src="../images/AI2.png" height=100>&nbsp;
+            </td><tr>
+        </table></center>
+        <br>
+        <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
+    </footer>
+  </body>
 </html>
 
