@@ -82,6 +82,8 @@
       var val_s_size = 0;
       var val_u_size = 0;
       var vid = null;
+      var splits_names;
+      var splits_sizes;
 
       function load_data() {
         $.getJSON('splits.json', function(jd) {
@@ -89,6 +91,8 @@
           training_size = jd.train.length;
           val_s_size = jd.valid_seen.length;
           val_u_size = jd.valid_unseen.length;
+          splits_names = ["train", "valid_seen", "valid_unseen"];
+          splits_sizes = [training_size, val_s_size, val_u_size];
 
           vid = findGetParameter("vid");
           if (vid == null) {
@@ -104,40 +108,49 @@
         view_example();
       }
 
+      function retrieve_example() {
+        captureOutboundLink('retrieve');
+
+        var raw_str = $('#input_retrieve_example').val();
+        alert(raw_str);
+        var ps = raw_str.split(".");
+        var s;
+        var i;
+        var S;
+        vid = -1;
+        for (s=0; s < 3; s++) {
+          S = splits_names[s];
+          I = splits_sizes[s];
+          for (i=0; i < I; i++) {
+            if (splits_data[S][i]["repeat_idx"] == ps[1]) {
+              if (splits_data[S][i]["task"].localeCompare(ps[0]) == 0) {
+                vid = (training_size * s) + i;
+                break;
+              }
+            }
+          }
+          if (vid > -1) {
+            break;
+          }
+        }
+
+        view_example();
+      }
+
       function choose_example() {
         // Choose a random example.
         var s = Math.floor((Math.random() * 3));
-        var I = -1;
-        var S = 0;
-        if (s == 0) {
-          S = "train";
-          I = training_size;
-        }
-        else if (s == 1) {
-          S = "valid_seen";
-          I = val_s_size;
-        }
-        else if (s == 2) {
-          S = "valid_unseen"
-          I = val_u_size;
-        }
+        var S = splits_names[s];
+        var I = splits_sizes[s];
         var i = Math.floor((Math.random() * I));
-        vid = (training_size * s) + i
+        vid = (training_size * s) + i;
       }
 
       function view_example() {
         var s = Math.floor(vid / training_size);
         var i = vid % training_size;
-        var S = 0;
-        if (s == 0) {
-          S = "train";
-        }
-        else if (s == 1) {
-          S = "valid_seen";
-        }
-        else if (s == 2) {
-          S = "valid_unseen"
-        }
+        var S = splits_names[s];
+        var I = splits_sizes[s];
 
         // Show video.
         var video = document.getElementById('expert_video');
@@ -154,6 +167,9 @@
           $('#highlevel').html(jd.turk_annotations.anns[aidx].task_desc);
           $('#lowlevel').html(jd.turk_annotations.anns[aidx].high_descs.join("<br/>"));
         });
+
+        // Populate retrieval field with video ID.
+        $('#input_retrieve_example').val(splits_data[S][i]["task"] + "." + aidx);
 
         // Get plink
         var url_whole = window.location.href;
@@ -272,6 +288,9 @@
     <tr><td>
     <div>
       <button class="btn btn-info btn-md" onclick="new_random_example()">Show Random Example</button>
+      <br/>
+      <button class="btn btn-info btn-md" onclick="retrieve_example()">Retrieve Example</button>
+      <input id="input_retrieve_example" placeholder="e.g., trial_T20190906_162502_940304.2">
       <table class="table table-striped">
       <tr><td colspan=2>
         <center><video width="320" height="240" controls id="expert_video" type="video/mp4">
