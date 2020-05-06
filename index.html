@@ -137,7 +137,7 @@
           view_example();
         }
         else {
-          $('#warning_retrieve_example').html("Could not retrieve the example.");
+          $('#warning_retrieve_example').show();
         }
       }
 
@@ -151,6 +151,7 @@
       }
 
       function view_example() {
+        $('#warning_retrieve_example').hide();
         var s = Math.floor(vid / training_size);
         var i = vid % training_size;
         var S = splits_names[s];
@@ -292,10 +293,10 @@
     <tr><td>
     <div>
       <button class="btn btn-info btn-md" onclick="new_random_example()">Show Random Example</button>
-      <br/>
+      <br/><br/>
       <button class="btn btn-info btn-md" onclick="retrieve_example()">Retrieve Example</button>
-      <input id="input_retrieve_example" placeholder="e.g., trial_T20190906_162502_940304.2">
-      <div class="alert alert-danger" role="alert" id="warning_retrieve_example"></div>
+      <input id="input_retrieve_example">
+      <div class="alert alert-danger" role="alert" id="warning_retrieve_example" hidden>Could not parse the specified example name.</div>
       <table class="table table-striped">
       <tr><td colspan=2>
         <center><video width="320" height="240" controls id="expert_video" type="video/mp4">
