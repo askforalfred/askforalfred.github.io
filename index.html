@@ -112,7 +112,6 @@
         captureOutboundLink('retrieve');
 
         var raw_str = $('#input_retrieve_example').val();
-        alert(raw_str);
         var ps = raw_str.split(".");
         var s;
         var i;
@@ -134,7 +133,12 @@
           }
         }
 
-        view_example();
+        if (vid > -1) {
+          view_example();
+        }
+        else {
+          $('#warning_retrieve_example').html("Could not retrieve the example.");
+        }
       }
 
       function choose_example() {
@@ -291,6 +295,7 @@
       <br/>
       <button class="btn btn-info btn-md" onclick="retrieve_example()">Retrieve Example</button>
       <input id="input_retrieve_example" placeholder="e.g., trial_T20190906_162502_940304.2">
+      <div class="alert alert-danger" role="alert" id="warning_retrieve_example"></div>
       <table class="table table-striped">
       <tr><td colspan=2>
         <center><video width="320" height="240" controls id="expert_video" type="video/mp4">
