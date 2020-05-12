@@ -47,6 +47,37 @@
         }
     </script>
 
+    <script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("Aug 5, 2020 0:0:0").getTime();
+    
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+    
+      // Get today's date and time
+      var now = new Date().getTime();
+    
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+    
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+      // Display the result in the element with id="demo"
+      document.getElementById("date").innerHTML = days + " days " + hours + ":"
+      + minutes + ":" + seconds;
+    
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("date").innerHTML = "Aug 5, 2020";
+      }
+    }, 1000);
+    </script>
+
     <style>
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -61,6 +92,24 @@
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
       }
+    }
+
+    #leaderboard 
+    {
+      width:500;
+      height:400;
+      position:absolute;
+      overflow:hidden;
+    }
+
+
+    #innerIframe
+    {
+      position:relative;
+      top:-400px;
+      left:0px;
+      width:450px;
+      height:700px;
     }
     </style>
 
@@ -98,11 +147,97 @@
 
     <!-- Main jumbotron -->
     <div class="jumbotron">
+      <div class="row">
+        <div class="col-md-5">
+          <h1>ALFRED Challenge</h1><br><img width=100 src="photos/ALFRED.png"><br><br>Leaderboard is now live for submissions to the ALFRED challenge!  Humans have a success rate of 91% on unseen environments, but our models have a 0.4% success rate. 😢   <a href="https://leaderboard.allenai.org/alfred/submissions/public">Can you do better?!</a>  Leaderboard submissions are eligible to win a cash prize (details coming soon) and a chance to speak at the workshop.  Results will be frozen August 5, 2020.<br>
+        </div> <!--col-->
+        <div class="col-md-5">
+          <h1>Deadline in <b id="date">August 5</b></h1><br>
+          <div id="leaderboard">
+            <iframe src="https://leaderboard.allenai.org/alfred/submissions/public" id="innerIframe" scrolling="no"></iframe>
+          </div>
+        </div> <!--col-->
+      </div> <!-- row -->
+      <br>
+      <div class="row">
+        <div class="col-md-10">
+          <center><a href="https://github.com/askforalfred/alfred">Code, precomputed features, and AI2Thor simulator are all available for a quick start on GitHub</a></center>
+        </div>
+      </div>
+    </div>
+    </main>
+
+
+    <div class="container">
+      <h2><b>E</b>mbodied <b>V</b>ision, <b>A</b>ctions & <b>L</b>anguage Workshop @ ECCV</h2>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <center>
+            <h3>Aug 23, 2020</h3>
+            <table width=500>
+              <tr bgcolor="#e0e0e0"><td>09:00 -- 09:30 </td><td colspan=3> Introductory remarks and Challenge results</td></tr>
+              <tr><td>09:30 -- 10:15 </td><td> <a href="http://www.cs.utexas.edu/~grauman/" target="_blank" onclick="captureOutboundLink('http://www.cs.utexas.edu/~grauman/');">Kristen Grauman</a></td><td>  UT Austin </td><td> Vision </td></tr>
+              <tr bgcolor="#e0e0e0"><td>10:15 -- 10:30 </td><td colspan=2> Coffee Break </td><td> </td></tr>
+              <tr><td>10:30 -- 11:15 </td><td> <a href="http://groups.csail.mit.edu/rrg/" target="_blank" onclick="captureOutboundLink('http://groups.csail.mit.edu/rrg/');">Nick Roy</a> </td><td>  MIT </td><td> Robotics </td></tr>
+              <tr><td>11:15 -- 12:00 </td><td> Invited Speaker </td><td>   </td><td> Vision</td></tr>
+              <tr bgcolor="#e0e0e0"><td>12:00 -- 13:00 </td><td colspan=2> Lunch </td><td> </td></tr>
+              <tr><td>13:00 -- 13:45 </td><td> <a href="http://www.cs.cmu.edu/~jeanoh/" target="_blank" onclick="captureOutboundLink('http://www.cs.cmu.edu/~jeanoh/');">Jean Oh</a> </td><td> CMU  </td><td> Robotics </td></tr>
+              <tr><td>13:45 -- 14:30 </td><td> <a href="http://www.jasonbaldridge.com/" target="_blank" onclick="captureOutboundLink('http://jasonbaldridge.com');">Jason Baldridge</a> </td><td> Google  </td><td> Language</td></tr>
+              <tr bgcolor="#e0e0e0"><td>14:30 -- 15:30 </td><td colspan=2> Coffee and Poster Session </td><td> </td></tr>
+              <tr bgcolor="#e0e0e0"><td>15:30 -- 16:00 </td><td colspan=2> Challenge Winner Award/Talk </td><td> </td></tr>
+              <tr><td>16:00 -- 16:45 </td><td> <a href="http://www.cs.cmu.edu/~abhinavg/" target="_blank" onclick="captureOutboundLink('http://www.cs.cmu.edu/~abhinavg/');">Abhinav Gupta</a> </td><td> FAIR & CMU </td><td> Vision </td></tr>
+              <tr bgcolor="#e0e0e0"><td>16:45 -- 17:00 </td><td colspan=2> Closing Remarks </td><td> </td></tr>
+            </table>
+          </center>
+        </div> <!-- /col -->
+        <div class="col-md-6">
+        <table width=300>
+        <tr><td><center><img width=100 src="photos/KristenGrauman.jpg"><br>Kristen Grauman</center></td><td><center><img width=100 src="photos/NicholasRoy.jpg"><br>Nick Roy</center></td></tr>
+        <tr><td colspan=2><center><img width=100 src="photos/JeanOh.jpg"><br>Jean Oh</center></td></tr>
+        <tr><td><center><img width=100 src="photos/JasonBaldridge.jpg"><br>Jason Baldridge</center></td><td><center><img width=100 src="photos/AbhinavGupta.jpg"><br>Abhinav Gupta</center></td></tr>
+        </table>
+        </div>
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+    <hr>
+
+        <br>
+
+        <div class="container">
+          <h3><b>Workshop Details</b></h3>
+          <div class="row">
+            <div class="col-md-6">
+              <br>
+              <p> 
+              The focus of this workshop is on embodied visual tasks that require the grounding of language to actions in real-world settings. Specifically, we want to draw focus to challenges like partial observability, continuous state spaces, and irrevocable actions for language-guided agents in visual environments.
+              Such challenges are not captured by current datasets for grounding and embodiment [<a href="https://bringmeaspoon.org/">1</a>, <a href="https://homes.cs.washington.edu/~xkcd/papers/iqa.html">2</a>, <a href="https://embodiedqa.org/">3</a>].
+              </p>
+            </div> <!-- col 7-->
+            <div class="col-md-6">
+              <ul><b>Key Topics</b>
+                <li>Egocentric and Robotic vision</li>
+                <li>Language Grounding</li>
+                <li>Navigation and Motion Planning</li>
+                <li>Interactive/Causal Reasoning</li>
+                <li>Learning from Demonstration</li>
+                <li>Task and Symbolic Planning</li>
+                <li>Deep Reinforcement Learning</li>
+                <li>Commonsense Reasoning</li>
+              </ul>
+            </div> <!-- col 5-->
+          </div> <!-- row -->
+          <div class="row">
+            <div class="col-md-10">
+              To encourage research in embodied vision & language, the workshop includes a benchmark challenge based on <a href="http://askforalfred.com">ALFRED</a>.
+              This benchmark captures real-world complexities like object state changes, and requires long-horizon planning. This workshop exists to bring together Vision, Robotics, and NLP researchers to tackle the unique challenges of this three-field intersection that are often avoided when focusing only on vision-and-language or vision-and-robotics (i.e., 'embodied AI').
+            </div> <!-- /col -->
+          </div> <!-- /row -->
+        </div> <!-- container -->
+      <br>
       <div class="container">
-        <h1 class="display-3">EVAL @ ECCV 2020</h1>
-        <h3><b>E</b>mbodied <b>V</b>ision, <b>A</b>ctions & <b>L</b>anguage Workshop — Aug 23, 2020</h3>
-
-
+          <div class="row">
+            <div class="col-md-10">
                 <table style="display: inline-block;"><tr><td>
                 <a href="https://yonatanbisk.com/" target="_blank" 
                    onclick="captureOutboundLink('https://yonatanbisk.com/');">
@@ -138,45 +273,16 @@
                    onclick="captureOutboundLink('https://prior.allenai.org/people');">
                    <center><img src="photos/EricKolve.jpg" height=100><br>Eric Kolve</a></center>
                 </td></tr></table>
+              </div>
+            </div>
         </div> <!-- container -->
 
-
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <br>
-              <p> 
-              The focus of this workshop is on embodied visual tasks that require the grounding of language to actions in real-world settings. Specifically, we want to draw focus to challenges like partial observability, continuous state spaces, and irrevocable actions for language-guided agents in visual environments.
-              Such challenges are not captured by current datasets for grounding and embodiment [<a href="https://bringmeaspoon.org/">1</a>, <a href="https://homes.cs.washington.edu/~xkcd/papers/iqa.html">2</a>, <a href="https://embodiedqa.org/">3</a>].
-              </p>
-            </div> <!-- col 7-->
-            <div class="col-md-6">
-              <ul><b>Key Topics</b>
-                <li>Egocentric and Robotic vision</li>
-                <li>Language Grounding</li>
-                <li>Navigation and Motion Planning</li>
-                <li>Interactive/Causal Reasoning</li>
-                <li>Learning from Demonstration</li>
-                <li>Task and Symbolic Planning</li>
-                <li>Deep Reinforcement Learning</li>
-                <li>Commonsense Reasoning</li>
-              </ul>
-            </div> <!-- col 5-->
-          </div> <!-- row -->
-          <div class="row">
-            <div class="col-md-10">
-              To encourage research in embodied vision & language, the workshop includes a benchmark challenge based on <a href="http://askforalfred.com">ALFRED</a>.
-              This benchmark captures real-world complexities like object state changes, and requires long-horizon planning. This workshop exists to bring together Vision, Robotics, and NLP researchers to tackle the unique challenges of this three-field intersection that are often avoided when focusing only on vision-and-language or vision-and-robotics (i.e., 'embodied AI').
-            </div> <!-- /col -->
-          </div> <!-- /row -->
-        </div> <!-- container -->
-    </main>
-
+      <hr>
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
           <h4>Submission Details</h4>
-          <p><b>Contributed Papers</b><br> <a href="https://eccv2020.eu/wp-content/uploads/2020/01/eccv2020kit-1.zip">Standard ECCV 2020 format</a></p>
+          <p><b>Contributed Papers</b><br> <a href="https://eccv2020.eu/wp-content/uploads/2020/01/eccv2020kit-1.zip">Standard ECCV 2020 format</a> -- Submission site coming soon!</p>
           <p><b>Challenge Papers</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank">evaluation  server</a>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the challenge will be frozen for the camera ready on July 10</p>
           <p><b>Publication Options</b> <i>Archival vs Unofficial</i><br>Papers can submitted for publication in either the official proceedings (<i>archival</i>) or to be hosted on this website (<i>unofficial</i>).  Both submission types can be presented at the workshop, but opting out of the proceedings allows you to submit your work for publication at another venue.</p>
         </div> <!-- col 5 -->
@@ -188,9 +294,9 @@
             <tr><td width=200>Submission </td><td width=150> July 10 </td></tr>
             <tr><td>Notification     </td><td> July 31</td></tr>
             <tr><td colspan=2><hr align=left width=250><b>Challenge Papers</b></td></tr>
-            <tr><td>System descriptions  </td><td>   July 10</td></tr>
-            <tr><td>Notification         </td><td>   July 31</td></tr>
-            <tr><td>Final numbers        </td><td>   Sept  &nbsp;5</td></tr>
+            <tr><td>Leaderboard closes   </td><td>   Aug  5</td></tr>
+            <tr><td>System descriptions  </td><td>   Aug 10</td></tr>
+            <tr><td>Notification         </td><td>   Aug 17</td></tr>
             <tr><td colspan=2><hr align=left width=250><b></b></td></tr>
             <tr><td>Camera Ready         </td><td>   Sept  &nbsp;5</td></tr>
           </table>
@@ -198,32 +304,6 @@
       </div> <!-- row -->
     </div> <!-- container -->
     <hr>
-
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10">
-          <center>
-            <h2>Tentative Schedule (Aug 23, 2020)</h2>
-            <table width=500>
-              <tr bgcolor="#e0e0e0"><td>09:00 -- 09:30 </td><td colspan=3> Introductory remarks and Challenge results</td></tr>
-              <tr><td>09:30 -- 10:15 </td><td> <a href="http://www.cs.utexas.edu/~grauman/" target="_blank" onclick="captureOutboundLink('http://www.cs.utexas.edu/~grauman/');">Kristen Grauman</a></td><td>  UT Austin </td><td> Vision </td></tr>
-              <tr bgcolor="#e0e0e0"><td>10:15 -- 10:30 </td><td colspan=2> Coffee Break </td><td> </td></tr>
-              <tr><td>10:30 -- 11:15 </td><td> <a href="http://groups.csail.mit.edu/rrg/" target="_blank" onclick="captureOutboundLink('http://groups.csail.mit.edu/rrg/');">Nick Roy</a> </td><td>  MIT </td><td> Robotics </td></tr>
-              <tr><td>11:15 -- 12:00 </td><td> Invited Speaker </td><td>   </td><td> Vision</td></tr>
-              <tr bgcolor="#e0e0e0"><td>12:00 -- 13:00 </td><td colspan=2> Lunch </td><td> </td></tr>
-              <tr><td>13:00 -- 13:45 </td><td> <a href="http://www.cs.cmu.edu/~jeanoh/" target="_blank" onclick="captureOutboundLink('http://www.cs.cmu.edu/~jeanoh/');">Jean Oh</a> </td><td> CMU  </td><td> Robotics </td></tr>
-              <tr><td>13:45 -- 14:30 </td><td> <a href="http://www.jasonbaldridge.com/" target="_blank" onclick="captureOutboundLink('http://jasonbaldridge.com');">Jason Baldridge</a> </td><td> Google  </td><td> Language</td></tr>
-              <tr bgcolor="#e0e0e0"><td>14:30 -- 15:30 </td><td colspan=2> Coffee and Poster Session </td><td> </td></tr>
-              <tr bgcolor="#e0e0e0"><td>15:30 -- 16:00 </td><td colspan=2> Challenge Winner Award/Talk </td><td> </td></tr>
-              <tr><td>16:00 -- 16:45 </td><td> <a href="http://www.cs.cmu.edu/~abhinavg/" target="_blank" onclick="captureOutboundLink('http://www.cs.cmu.edu/~abhinavg/');">Abhinav Gupta</a> </td><td> FAIR & CMU </td><td> Vision </td></tr>
-              <tr bgcolor="#e0e0e0"><td>16:45 -- 17:00 </td><td colspan=2> Closing Remarks </td><td> </td></tr>
-            </table>
-          </center>
-        </div> <!-- /col -->
-      </div> <!-- /row -->
-      <hr>
-    </div> <!-- /container -->
 
 
     <footer class="container">
