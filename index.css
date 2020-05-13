@@ -1,0 +1,26 @@
+.navbar {
+    position: sticky;
+    z-index: 99;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    top: 0px;
+}
+
+.groupLogo {
+    height: 100px;
+    padding: 10px;
+}
+
+#groupContainer {
+    text-align: center;
+}
+
+.homeButton {
+    margin: 5px;
+}
+
+@media screen and (max-width: 650px) {
+    #bib {
+        /* font-size: 10px; */
+    }
+}
