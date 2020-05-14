@@ -1,9 +1,11 @@
 .navbar {
-    position: sticky;
+    position: fixed;
     z-index: 99;
     padding-top: 20px;
     padding-bottom: 20px;
-    top: 0px;
+    top: -1px;
+    right: 0px;
+    left: 0px;
 }
 
 .groupLogo {
@@ -23,6 +25,14 @@
     display: none;
 }
 
+.jumbotron {
+    padding-top: 100px;
+}
+
+#remarksTable {
+    width: 100%;
+}
+
 @media screen and (max-width: 930px) {
     .jumbotron {
         padding-bottom: 5rem;
@@ -35,11 +45,21 @@
     #leaderboardButtonEval {
         display: block ;
     }
+
+    #remarksTable {
+        margin-bottom: 25px;
+    }
 }
 
 @media screen and (max-width: 500px) {
-    #remarksTable {
+    #ytVid {
         width: 100%;
-        margin-bottom: 25px;
     }
+}
+
+@media screen and (max-width: 360px) {
+    .jumbotron, #remarksTable {
+        width: 113%;
+    }
+
 }
