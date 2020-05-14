@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
 
     <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -25,8 +26,8 @@
     <link rel="canonical" href="http://askforalfred.com">
 
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
   <script>
     /**
     * Function that captures a click on an outbound link in Analytics.
@@ -194,7 +195,7 @@
   </head>
 
 
-  <body onload="load_data()" style="padding-top: 10px;">
+  <body onload="load_data()" style="padding-top: 0px;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">ALFRED <img src="images/alfred-white.svg" width=50></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
@@ -242,26 +243,26 @@
 
       <p> <b>ALFRED</b> (<b>A</b>ction <b>L</b>earning <b>F</b>rom <b>R</b>ealistic <b>E</b>nvironments and <b>D</b>irectives), is a new benchmark for learning a mapping from natural language instructions and egocentric vision to sequences of actions for household tasks.  Long composition rollouts with non-reversible state changes are among  the  phenomena  we  include  to  shrink  the  gap  between  research  benchmarks  and  real-world  applications.</p>
       <p>
-        <a class="btn btn-primary btn-lg" href="https://arxiv.org/abs/1912.01734" 
+        <a class="btn btn-primary btn-lg homeButton" href="https://arxiv.org/abs/1912.01734" 
             role="button" target="_blank" onclick="captureOutboundLink('https://arxiv.org/abs/1912.01734');">Paper on ArXiv&raquo;</a> 
-        <a class="btn btn-primary btn-lg" href="https://github.com/askforalfred/alfred" 
+        <a class="btn btn-primary btn-lg homeButton" href="https://github.com/askforalfred/alfred" 
             role="button" target="_blank" onclick="captureOutboundLink('https://github.com/askforalfred/alfred');">GitHub&raquo;</a>
-        <a class="btn btn-primary btn-lg" href="https://ai2thor.allenai.org/ithor/demo/"
+        <a class="btn btn-primary btn-lg homeButton" href="https://ai2thor.allenai.org/ithor/demo/"
             role="button" target="_blank" onclick="captureOutboundLink('https://ai2thor.allenai.org/ithor/demo/');">Simulator&raquo;</a>
-        <a class="btn btn-danger btn-lg" href="EVAL" 
+        <a class="btn btn-danger btn-lg homeButton" href="EVAL" 
             role="button" onclick="captureOutboundLink('EVAL');">ECCV Challenge&raquo;</a></p>
       </p>
 
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-6 d-flex justify-content-right">
-     <iframe width="560" height="315" src="https://www.youtube.com/embed/1XoRLNmXffo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+     <iframe width="560" height="315" id="ytVid" src="https://www.youtube.com/embed/1XoRLNmXffo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="col-sm-6 d-flex justify-content-left">
       <div class="card bg-light">
         <div class="card-body">
           <p class="card-text">
-            <code ><font color="black">
+            <code id="bib"><font color="black">
                 @inproceedings{ALFRED20,<br>
                 &nbsp;&nbsp;title&nbsp;={{ALFRED: A Benchmark for Interpreting Grounded <br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instructions for Everyday Tasks}},<br>
@@ -319,15 +320,13 @@
 
 
 <footer class="container">
-  <center><table>
-    <tr><td>
-            <img src="images/UW.jpg" height=100>&nbsp;
-            <img src="images/cmu.jpg" height=100>&nbsp;
-            <img src="images/microsoft.jpg" height=100>&nbsp;
-            <img src="images/AI2.png" height=100>&nbsp;
-            <img src="images/nvidia.jpg" height=100>&nbsp;
-    </td><tr>
-  </table></center>
+  <div id="groupContainer">
+      <img src="images/UW.jpg" class="groupLogo">
+      <img src="images/cmu.jpg" class="groupLogo">
+      <img src="images/microsoft.jpg" class="groupLogo">
+      <img src="images/AI2.png" class="groupLogo">
+      <img src="images/nvidia.jpg" class="groupLogo">
+  </div>
   <br>
   <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
 </footer>

@@ -116,12 +116,13 @@
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.3/examples/jumbotron/jumbotron.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../index.css">
 
 
   </head>
 
 
-  <body style="padding-top: 10px;">
+  <body style="padding-top: 0px;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">EVAL @ ECCV 2020</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" 
@@ -158,6 +159,7 @@
         <div class="col-md-5">
           <h1>Deadline in <b id="date">August 5</b></h1><br>
           <div id="leaderboard">
+            <a class="btn btn-primary btn-lg homeButton" id="leaderboardButtonEval" href="https://leaderboard.allenai.org/alfred/submissions/public" role="button" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">Leaderboard»</a>
             <iframe src="https://leaderboard.allenai.org/alfred/submissions/public" id="innerIframe" scrolling="no"></iframe>
           </div>
         </div> <!--col-->
@@ -174,7 +176,7 @@
         <div class="col-md-7">
           <center>
             <h3>Aug 23, 2020</h3>
-            <table width=500>
+            <table width=500 id="remarksTable">
               <tr bgcolor="#e0e0e0"><td>09:00 -- 09:30 </td><td colspan=3> Introductory remarks and Challenge results</td></tr>
               <tr><td>09:30 -- 10:15 </td><td> <a href="http://www.cs.utexas.edu/~grauman/" target="_blank" onclick="captureOutboundLink('http://www.cs.utexas.edu/~grauman/');">Kristen Grauman</a></td><td>  UT Austin </td><td> Vision </td></tr>
               <tr bgcolor="#e0e0e0"><td>10:15 -- 10:30 </td><td colspan=2> Coffee Break </td><td> </td></tr>
@@ -306,22 +308,15 @@
 
 
     <footer class="container">
-
-      <div class="row">
-        <div class="col-sm-10">
-          <center><table>
-              <tr><td>
-                  <img src="../images/cmu.jpg" height=100>&nbsp;
-                  <img src="../images/UW.jpg" height=100>&nbsp;
-                  <img src="../images/nvidia.jpg" height=100>&nbsp;
-                  <img src="../images/google.png" height=100>&nbsp;
-                  <img src="../images/AI2.png" height=100>&nbsp;
-                </td><tr>
-            </table></center>
-        <br>
-        <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
+      <div id="groupContainer">
+          <img src="../images/UW.jpg" class="groupLogo">
+          <img src="../images/cmu.jpg" class="groupLogo">
+          <img src="../images/microsoft.jpg" class="groupLogo">
+          <img src="../images/AI2.png" class="groupLogo">
+          <img src="../images/nvidia.jpg" class="groupLogo">
       </div>
-    </div>
+      <br>
+      <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
     </footer>
   </body>
 </html>

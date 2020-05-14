@@ -1,0 +1,65 @@
+.navbar {
+    position: fixed;
+    z-index: 99;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    top: -1px;
+    right: 0px;
+    left: 0px;
+}
+
+.groupLogo {
+    height: 100px;
+    padding: 10px;
+}
+
+#groupContainer {
+    text-align: center;
+}
+
+.homeButton {
+    margin: 5px;
+}
+
+#leaderboardButtonEval {
+    display: none;
+}
+
+.jumbotron {
+    padding-top: 100px;
+}
+
+#remarksTable {
+    width: 100%;
+}
+
+@media screen and (max-width: 930px) {
+    .jumbotron {
+        padding-bottom: 5rem;
+    }
+
+    #leaderboard #innerIframe {
+        display: none;
+    }
+
+    #leaderboardButtonEval {
+        display: block ;
+    }
+
+    #remarksTable {
+        margin-bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #ytVid {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .jumbotron, #remarksTable {
+        width: 113%;
+    }
+
+}
