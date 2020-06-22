@@ -177,7 +177,8 @@
 
         // Show video.
         var video = document.getElementById('expert_video');
-        video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
+        // video.src = "https://mturk.jessethomason.com/lang_2_plan/2.1.0/" + splits_data[S][i]["task"] + "/video.mp4";
+        video.src = "https://ai2-vision-alfred-data-explorer.s3-us-west-2.amazonaws.com/" + splits_data[S][i]["task"] + "/video.mp4";
         video.playbackRate = 2;
         video.defaultPlaybackRate = 2;
         video.play();
