@@ -131,6 +131,75 @@
       width:500px;
       height:900px;
     }
+
+    .performanceTable tr.human-row {
+        background: #f5f5f5;
+    }
+
+    .performanceTable tr.random-row {
+        background: #fafafa;
+    }
+
+    .performanceTable {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%;
+        border: 1px solid #ccc;
+        background-color: #9da3bf14;
+        border-radius: 4px;
+    }
+
+    .performanceTable .institution {
+        font-style: italic;
+        font-weight: 300;
+    }
+
+    .performanceTable .date {
+        font-weight: normal;
+        background-color: #777;
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .performanceTable td,
+    .performanceTable th {
+        text-align: center;
+        max-width: 250px;
+    }
+
+
+
+    table tr *:nth-child(3) {
+      border-right: 1px dashed #bfbfbf;
+      border-left: 1px dashed #bfbfbf;
+    }
+
+    table tr *:nth-child(4) {
+      border-right: 1px dashed #bfbfbf;
+      border-left: 1px dashed #bfbfbf;
+    }
+
+    table tr *:nth-child(5) {
+      border-right: 1px dashed #bfbfbf;
+      border-left: 1px dashed #bfbfbf;
+    }
+
+
+/*    table tr *:nth-child(5) {
+      border-right: 1px dashed #bfbfbf;
+    }*/
+    /*table tr td:nth-child(5) {*/
+      /*border-right: 1px dashed #bfbfbf;*/
+    /*}*/
+
+
     </style>
 
     <!-- Custom styles for this template -->
@@ -182,7 +251,7 @@
             </div> <!-- col 5-->
           </div> <!-- row -->
           <br><br>
-          <a href="https://leaderboard.allenai.org/alfred/submissions/public">Leaderboard</a> is accepting submissions to the ALFRED <a href="https://embodied-ai.org/" target="_blank" onclick="captureOutboundLink('https://embodied-ai.org/');">Embodied AI Challenge</a> with <code>EAI21</code> tags!  Humans have a success rate of 91% on unseen environments, but the best models are still far behind 😢 <br/>
+          <a href="https://leaderboard.allenai.org/alfred/submissions/public">Leaderboard</a> is accepting submissions to the ALFRED <a href="https://embodied-ai.org/" target="_blank" onclick="captureOutboundLink('https://embodied-ai.org/');">Embodied AI Challenge</a> with <code>[EAI21]</code> tags!  Humans have a success rate of 91% on unseen environments, but the best models are still far behind 😢 <br/>
           <br/>
           Can you do even better? <a href="https://github.com/askforalfred/alfred">Code, precomputed features, and AI2Thor simulator are all available for a quick start on GitHub</a>
         </div> <!--col-->
@@ -279,11 +348,12 @@
         </div> <!-- container -->
 
       <hr>
+
     <div class="container">
       <div class="row">
         <div class="col-md-6">
           <h4>Challenge Details</h4>
-          <p><b>Guidelines</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">evaluation  server</a>  with the tag <code>EAI21</code>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the prize challenge will be frozen on May 31.</p>
+          <p><b>Guidelines</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">evaluation  server</a>  with <code>[EAI21]</code> in the submission title, e.g. <i>[EAI21] Seq2seq Model</i>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the prize challenge will be frozen on May 31.</p>
           <p><b>Dataset</b><br> The challenge is based on the <a href="https://github.com/askforalfred/alfred" target="_blank">ALFRED Dataset</a>, which contains 25K language annotations of both high-level goals and low-level step-by-step instructions for various tasks set in the <a href="https://ai2thor.allenai.org/" target="_blank">AI2THOR</a> simulator. Agents interact with environments through discrete actions and pixelwise masks.</p>
         </div> <!-- col 5 -->
 
@@ -301,9 +371,10 @@
       <div class="row">
         <div class="col-md-11">
           <p><b>Evaluation</b><br> The leaderboard script records actions taken by a pre-trained agent and dumps them to a JSON file. These deterministic actions in the JSON will be replayed on the leaderboard server for evaluation. This process is model-agnostic, allowing you to use your local resources for test-time inference. </p>
+          <p><b>Metric</b><br> The submissions will be ranked by Unseen Success Rate. </p>
           <p><b>Rules</b><br> 
           <ol>
-            <li>Use the <code>EAI21</code> tag for submissions.</li>
+            <li>Include <code>[EAI21]</code> in the submission title.</li>
             <li>You can publish your results only once every 7 days.</li>
             <li>Try to solve the ALFRED dataset: all submissions must be attempts to solve the ALFRED dataset.</li>
             <li>Do not exploit the metadata in test-scenes: you should solve the vision-language grounding problem without misusing the metadata from THOR.
@@ -318,13 +389,47 @@
       </div>
     </div>
     <hr>
+
+    <div class="container">
+        <div class="container">
+          <h3><b>Submissions</b></h3>
+          <p>Updated everyday at 9pm PST.</p>
+          <br>
+          <div class="col-md-13">
+               <table class="table performanceTable box-shadow">
+                    <tbody>
+                    <tr>
+                        <th>Rank</th>
+                        <th style="min-width: 25%;">Model</th>
+                        <th style="max-width: 10%;">Unseen Success</th>
+                        <th style="max-width: 10%;">Seen Success</th>
+                        <th style="max-width: 10%;">Unseen PLW</th>
+                        <th style="max-width: 10%;">Seen PLW</th>
+                    </tr>
+                    <tr class="human-row">
+                        <td></td>
+                        <td>Human Performance<p class="institution">University of Washington</p><a
+                                href="https://arxiv.org/abs/1912.01734">(Shridhar et al. '20)</a></td>
+                        <td>91.0</td>
+                        <td>-</td>
+                        <td>87.6</td>
+                        <td>-</td>
+                    </tr>
+<tr><td><p>🥇</p><span class="date">TBD, 2021</span></td><td>Seq2seq Baseline<p class="institution">University of Washington</p><a class="link" href="https://github.com/askforalfred/alfred">github.com/askforalfred/alfred</a></td><td>0.4</td><td><b>0.4</b></td><td><b>0.0</b></td><td>2.0</td></tr>
+                    </tbody>
+                </table>
+          </div> <!-- col 7-->
+        </div>
+        <br>
+    </div>
+    <hr>
+
     <div class="container">
       <div class="row">
         <div class="col-md-11">
-          <h4>Submission FAQ</h4>
+          <h4>FAQ</h4>
             <ul>
               <li><b>Do you need to submit a report?</b> <br>No</li><br>
-              <li><b>What is the ranking metric?</b><br>Ranking is based on Unseen Success Rate</li><br>
               <li><b>Is there a prize for the winner?</b><br>TBD</li><br>
             </ul>
           </h4>
