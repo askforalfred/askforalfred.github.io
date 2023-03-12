@@ -14,13 +14,15 @@
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>EAI @ CVPR 2023 </title>
+    <title>ALFRED+TEACh @ CVPR 2023 </title>
 
     <link rel="canonical" href="http://askforalfred.com/EAI">
 
@@ -218,7 +220,7 @@
 
   <body style="padding-top: 0px;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">EAI @ CVPR 2023</a>
+      <a class="navbar-brand" href="#">ALFRED+TEACh @ CVPR 2023</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" 
                                                    data-target="#navbars" aria-controls="navbars" 
                                                                           aria-expanded="false" aria-label="Toggle navigation">
@@ -232,10 +234,6 @@
               onclick="captureOutboundLink('https://askforalfred.com');">ALFRED</a>
           <a class="nav-item nav-link" href="https://teachingalfred.github.io/" 
               onclick="captureOutboundLink('https://teachingalfred.github.io/');">TEACh</a>
-          <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred/tree/master/data" target="_blank" 
-              onclick="captureOutboundLink('https://github.com/askforalfred/alfred/tree/master/data');">Data</a>
-          <a class="nav-item nav-link" href="https://github.com/askforalfred/alfred" target="_blank" 
-              onclick="captureOutboundLink('https://github.com/askforalfred/alfred');">Code</a>
         </div>
       </div>
     </nav>
@@ -248,12 +246,12 @@
       <div class="row">
         <div class="col-md-12" align="left">
         <p>
-          <h1>Generalist Language Understanding Agents Challenge</h1>
+          <h1>Generalist Language Grounding Agents Challenge</h1>
           </p>
           <h3>Embodied AI Workshop @ CVPR 2023</h3>
           <br/>
         <p>
-        Recent embodied agents have been successful in learning navigation and interaction skills from large-scale datasets, but progress has been limited to single-setting domains like either instruction-following or dialogue-driven tasks. To avoid over-specialization of models to specific datasets and tasks, this challenge encourages the development of <b>generalist agents</b> whose architectures transfer language-understanding and decision-making capabilities across tasks. For this first iteration, we unify aspects of the ALFRED and TEACh datasets. While both datasets are set in the Ai2THOR simulator, they differ along several axes:
+        Recent embodied agents have been successful in learning navigation and interaction skills from large-scale datasets, but progress has been limited to single-setting domains like either instruction-following or dialogue-driven tasks. To avoid over-specialization of models to specific datasets and tasks, this challenge encourages the development of <b>generalist language grounding agents</b> whose architectures transfer language-understanding and decision-making capabilities across tasks. For this first iteration, we unify aspects of the ALFRED and TEACh datasets. While both datasets are set in the Ai2THOR simulator, they differ along several axes:
         </p>
         <ul>
           <li>Declarative (ALFRED) vs Dialogue (TEACh) language introduces grounding and alignment challenges</li>
@@ -320,7 +318,7 @@
             <div class="col-md-6">
               <br>
               <p> 
-              The focus of this challenge is to build generalist embodied agents that map language to actions in embodied settings. Specifically, we want to agents to be capable of solving instruction-following and dialogue-driven grounding tasks. These tasks involve challenges like partial observability, continuous state spaces, and irrevocable actions for language-guided agents in visual environments.
+              The focus of this challenge is to build generalist embodied agents that map language to actions in embodied settings. Specifically, we want agents to be capable of solving instruction-following and dialogue-driven grounding tasks. These tasks involve challenges like partial observability, continuous state spaces, and irrevocable actions in rich visual environments.
               Such challenges are not captured by prior datasets for embodiment [<a href="https://bringmeaspoon.org/">1</a>, <a href="https://homes.cs.washington.edu/~xkcd/papers/iqa.html">2</a>, <a href="https://embodiedqa.org/">3</a>].
               </p>
             </div> <!-- col 7-->
@@ -340,8 +338,8 @@
           </div> <!-- row -->
           <div class="row">
             <div class="col-md-10">
-              To encourage research in generalist agents, the workshop includes a benchmark challenge based on <a href="http://askforalfred.com">ALFRED</a> and <a href="https://teachingalfred.github.io/">TEACh</a>.
-              This benchmark captures real-world complexities like object state changes, and requires long-horizon planning. This workshop exists to bring together Vision, Robotics, and NLP researchers to tackle the unique challenges of this three-field intersection that are often avoided when focusing only on vision-and-language or vision-and-robotics (i.e., 'embodied AI').
+              The challenge is based on two benchmarks: <a href="http://askforalfred.com">ALFRED</a> and <a href="https://teachingalfred.github.io/">TEACh</a>. 
+              This workshop exists to bring together Vision, Robotics, and NLP researchers to tackle the unique challenges of this three-field intersection that are often avoided when focusing only on vision-and-language or vision-and-robotics (i.e., 'embodied AI').
             </div> <!-- /col -->
               <div class="col-md-10">
               <br>
@@ -421,10 +419,13 @@
 
         <div class="col-md-11">
           <h4>Challenge Details</h4>
+          <p>
+          Participants will submit their best agents to both leaderboards independently. Submissions <b>must be from a single agent</b> that is evaluated on both ALFRED and TEACh. The top two submissions will have the opportunity to present their methods at the Embodied AI workshop.
           </br>
-
+          </br>
+          </p>
           <h5>1️⃣ ALFRED Challenge</h5>
-          <p><b>Guidelines</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">evaluation  server</a>  with <code>[EAI23]</code> in the submission title, e.g. <i>[EAI23] Seq2seq Model</i>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the prize challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info on test scenes).</p>
+          <p><b>Guidelines</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">evaluation  server</a>  with <code>[EAI23]</code> in the submission title, e.g. <i>[EAI23] Seq2seq Model</i>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the prize challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info from test scenes).</p>
           <p><b>Dataset</b><br> The challenge is based on the <a href="https://github.com/askforalfred/alfred" target="_blank">ALFRED Dataset</a>, which contains 25K language annotations of both high-level goals and low-level step-by-step instructions for various tasks set in the <a href="https://ai2thor.allenai.org/" target="_blank">AI2THOR</a> simulator. Agents interact with environments through discrete actions and pixelwise masks. </p>
         </div> <!-- col 5 -->
 
@@ -454,8 +455,14 @@
 
           </br>
           </br>
-          <h5>📈 Combined Evaluation Metric </h5>
-          Details coming soon ...
+          <h5>📈 Evaluation Metric </h5>
+          Submissions will be ranked by a combined score that equally weighs Unseen Success Rates from both ALFRED and TEACh:
+          </br>
+          <div style="text-align:center">
+            <div id="equation">
+              $$\textrm{Combined}_{\textrm{Unseen Success}}\ =\ \frac{1}{2} (\textrm{ALFRED}_{\textrm{Unseen Success}} +\ \textrm{TEACh}_{\textrm{Unseen Success}})$$
+            </div>
+          </div>  
 
           </p>
         </div>
@@ -490,7 +497,7 @@
                         <td>-</td>
                         <td>-</td>
                         <td>-</td>
-<tr><td><p>-</p></td><td>Seq2seq Baseline<p class="institution">University of Washington, Amazon, USC Viterbi</p> </td><td>0.4</td><td>0.0</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td><p>-</p></td><td>Seq2seq Baseline<p class="institution">University of Washington, Amazon, USC Viterbi</p> </td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
                     </tbody>
                 </table>
           </div> <!-- col 7-->
