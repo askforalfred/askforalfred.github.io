@@ -289,10 +289,9 @@
           </div> <!-- row -->
           <br><br>
 
-          <a href="https://github.com/GLAMOR-USC/teach_tatc">The TEACh Leaderboard</a> is coming soon! Submit your agent with the <code>[EAI23]</code> tags. The best performing agents have a unseen success rate of <1% 😖<br/>
+          <a href="https://github.com/GLAMOR-USC/teach_tatc">The TEACh Leaderboard</a> is <s>coming soon!</s>  not ready, but you can <a target="_blank" href="https://github.com/alexa/teach#evaluation">run evaluations</a> on the validation set. The best performing agents have an unseen success rate of <1% 😖<br/>
           <br/>
-          <br/>
-          Can you do even better? <a href="https://github.com/GLAMOR-USC/teach_tatc">Code and baselines</a> are all available on Github.</a>
+          Can you do even better? <a target="_blank" href="https://github.com/GLAMOR-USC/teach_tatc">Code and baselines</a> are all available on Github.</a>
           <br/>
           <br/>
         </div> <!--col-->
@@ -423,9 +422,13 @@
           Participants will submit their best agents to both leaderboards independently. Submissions <b>must be from a single agent</b> that is evaluated on both ALFRED and TEACh. The top two submissions will have the opportunity to present their methods at the Embodied AI workshop.
           </br>
           </br>
+          <b>Submission</b><br>
+          Email your best unseen success rate scores from ALFRED and TEACh to <a href="mailto:mshr@cs.washington.edu">Mohit</a>. Please include the (1) list of participants, (2) team name, and (3) model name. ALFRED agents should be submitted to the leaderboard, TEACh agents can be evaluated locally.
+          </br>
+          </br>
           </p>
           <h5>1️⃣ ALFRED Challenge</h5>
-          <p><b>Guidelines</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">evaluation  server</a>  with <code>[EAI23]</code> in the submission title, e.g. <i>[EAI23] Seq2seq Model</i>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the prize challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info from test scenes).</p>
+          <p><b>Guidelines</b> <br>Participants are required to upload their model to  our  <a href="https://leaderboard.allenai.org/alfred/submissions/public" target="_blank" onclick="captureOutboundLink('https://leaderboard.allenai.org/alfred/submissions/public');">evaluation  server</a>  with <code>[EAI23]</code> in the submission title, e.g. <i>[EAI23] Seq2seq Model</i>.   The  evaluation  server  automatically  evaluates  the models on an unseen test set.  Final numbers for the challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info from test scenes).</p>
           <p><b>Dataset</b><br> The challenge is based on the <a href="https://github.com/askforalfred/alfred" target="_blank">ALFRED Dataset</a>, which contains 25K language annotations of both high-level goals and low-level step-by-step instructions for various tasks set in the <a href="https://ai2thor.allenai.org/" target="_blank">AI2THOR</a> simulator. Agents interact with environments through discrete actions and pixelwise masks. </p>
         </div> <!-- col 5 -->
 
@@ -451,10 +454,25 @@
 
           </br>
           <h5>2️⃣ TEACh Challenge</h5>
-          Details coming soon ...
+          <p><b>Guidelines</b> <br> The TEACh leaderboard is not ready for the challenge 😔. Participants are required to run evaluations locally on the <code>val_unseen</code> split, and report scores in the submission email to <a href="mailto:mshr@cs.washington.edu">Mohit</a>. Final numbers for the  challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info from test scenes). </p>
 
+          <p><b>Dataset</b><br> The challenge is based on the <a href="https://github.com/alexa/teach#downloading-the-dataset" target="_blank">TEACh Dataset</a>, which contains 3000 human-to-human interactive dialogues. In these dialogues, a commander with access to oracle information communicates in natural language with a follower to achieve a specific task.  
+        </div> <!-- col 5 -->
+
+        <div class="col-md-11">
+          <p><b>Starter Code</b><br>
+          Checkout the <a href="https://github.com/alexa/teach/tree/main/src/teach/modeling/ET" target="_blank">Episodic Transformer</a> (Pashevich et al.) implementation in the repo.</p>
+
+          <p><b>Metric</b><br> The submissions will be ranked by Unseen Success Rate. </p>
+          <p><b>Rules</b><br> 
+          <ol>
+            <li>Report scores on the <code>val_unseen</code> split. See <a target="_blank" href="https://github.com/alexa/teach/tree/main/src/teach/modeling/ET#episodic-transformer-based-tfd-model">this example</a> for evaluating a trained agent.</li>
+            <li>Do not exploit the metadata in test-scenes: you should solve the vision-language grounding problem without misusing the metadata from THOR. For leaderboard evaluations, agents should just use <b>RGB input</b> and <b>dialogue interactions</b>. You <b>cannot use additional depth, mask, metadata info etc. from the simulator on Test Seen and Test Unseen scenes.</b> Submissions that use additional info on test scenes will be disqualified. 
+            However, during training you are allowed to use additional info for auxiliary losses etc.</li>
+            <li>Only submit your own work: you may evaluate any model on the validation set, but must only submit your own work for evaluation against the validation set.</li>
+          </ol>
           </br>
-          </br>
+
           <h5>📈 Evaluation Metric </h5>
           Submissions will be ranked by a combined score that equally weighs Unseen Success Rates from both ALFRED and TEACh:
           </br>
