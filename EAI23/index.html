@@ -454,7 +454,7 @@
 
           </br>
           <h5>2️⃣ TEACh Challenge</h5>
-          <p><b>Guidelines</b> <br> The TEACh leaderboard is not ready for the challenge 😔. Participants are required to run evaluations locally on the <code>val_unseen</code> split, and report scores in the submission email to <a href="mailto:mshr@cs.washington.edu">Mohit</a>. Final numbers for the  challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info from test scenes). </p>
+          <p><b>Guidelines</b> <br> The TEACh leaderboard is not ready for the challenge 😔. Participants are required to run evaluations locally on the Task from Dialogue (TfD) <code>val_unseen</code> split, and report scores in the submission email to <a href="mailto:mshr@cs.washington.edu">Mohit</a>. Final numbers for the  challenge will be frozen on <b>Jun 12</b>. Winning submissions will be required to submit a <b>brief (private) report of technical details</b> for validity checking. We will also <b>conduct a quick code inspection</b> to ensure that the challenge rules weren't violated (e.g. using additional info from test scenes). </p>
 
           <p><b>Dataset</b><br> The challenge is based on the <a href="https://github.com/alexa/teach#downloading-the-dataset" target="_blank">TEACh Dataset</a>, which contains 3000 human-to-human interactive dialogues. In these dialogues, a commander with access to oracle information communicates in natural language with a follower to achieve a specific task.  
         </div> <!-- col 5 -->
@@ -466,7 +466,7 @@
           <p><b>Metric</b><br> The submissions will be ranked by Unseen Success Rate. </p>
           <p><b>Rules</b><br> 
           <ol>
-            <li>Report scores on the <code>val_unseen</code> split. See <a target="_blank" href="https://github.com/alexa/teach/tree/main/src/teach/modeling/ET#episodic-transformer-based-tfd-model">this example</a> for evaluating a trained agent.</li>
+            <li>Report scores on the Task from Dialogue (TfD) <code>val_unseen</code> split. See <a target="_blank" href="https://github.com/alexa/teach/tree/main/src/teach/modeling/ET#episodic-transformer-based-tfd-model">this example</a> for evaluating a trained agent.</li>
             <li>Do not exploit the metadata in test-scenes: you should solve the vision-language grounding problem without misusing the metadata from THOR. For leaderboard evaluations, agents should just use <b>RGB input</b> and <b>dialogue interactions</b>. You <b>cannot use additional depth, mask, metadata info etc. from the simulator on Test Seen and Test Unseen scenes.</b> Submissions that use additional info on test scenes will be disqualified. 
             However, during training you are allowed to use additional info for auxiliary losses etc.</li>
             <li>Only submit your own work: you may evaluate any model on the validation set, but must only submit your own work for evaluation against the validation set.</li>
