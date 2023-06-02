@@ -419,7 +419,7 @@
         <div class="col-md-11">
           <h4>Challenge Details</h4>
           <p>
-          Participants will submit their best agents to both leaderboards independently. Submissions <b>must be from a single agent</b> that is evaluated on both ALFRED and TEACh. The top two submissions will have the opportunity to present their methods at the Embodied AI workshop.
+          Participants will submit their best agents to both leaderboards independently. Submissions <b>must be from a single agent</b> that is evaluated on both ALFRED and TEACh. The final decoder layers can be customized for each environment, but encoders for vision, language and other inputs have to be shared. The top two submissions will have the opportunity to present their methods at the Embodied AI workshop.
           </br>
           </br>
           <b>Submission</b><br>
@@ -440,6 +440,7 @@
           <p><b>Rules</b><br> 
           <ol>
             <li>Include <code>[EAI23]</code> in the submission title e.g. <i>[EAI23] Seq2seq Model</i>.</li>
+            <li>The final decoder layers can be customized for each environment, but encoders for vision, language and other inputs have to be shared.</li>
             <li>Do not exploit the metadata in test-scenes: you should solve the vision-language grounding problem without misusing the metadata from THOR. For leaderboard evaluations, agents should just use <b>RGB input</b> and <b>language instructions (goal & step-by-step)</b>. You <b>cannot use additional depth, mask, metadata info etc. from the simulator on Test Seen and Test Unseen scenes.</b> Submissions that use additional info on test scenes will be disqualified. 
             However, during training you are allowed to use additional info for auxiliary losses etc.</li>
             <li>During evaluation, agents are restricted to <code>max_steps=1000</code> and <code>max_fails=10</code>. Do not change these settings in the <a href="https://github.com/askforalfred/alfred/blob/master/models/eval/leaderboard.py#L220" target="_blank">leaderboard script</a>; these modifications will not be reflected in the evaluation server.</li>
@@ -545,7 +546,7 @@
     <hr>
 
     <footer class="container">
-      <p>Questions or issues?  Contact <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a></p>
+      <p>Questions or issues?  Contact <a href="mailto:mshr@cs.washington.edu">mshr (at) cs.washington.edu</a></p>
     </footer>
   </body>
 </html>
