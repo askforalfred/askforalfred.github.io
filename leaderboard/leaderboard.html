@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALFRED Leaderboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Will adjust as one side is now empty */
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header-title {
+            display: flex;
+            align-items: center;
+        }
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .header-title h1 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .header-title p {
+            font-size: 12px;
+            color: #6c757d;
+            margin: 5px 0 0 0;
+            max-width: 700px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            display: flex;
+            border-bottom: 2px solid #dee2e6;
+        }
+        nav ul li {
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #495057;
+            padding: 10px 5px;
+            display: block;
+            font-weight: 500;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+        }
+        nav ul li a.active {
+            color: #007bff;
+            border-bottom-color: #007bff;
+        }
+        .human-performance {
+            background-color: #e0f3ff;
+            border: 1px solid #b8e2fc;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .human-performance .title {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+            color: #007bff;
+        }
+        .human-performance .title svg {
+            fill: #007bff;
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+        .human-performance .scores {
+            text-align: right;
+            font-size: 14px;
+            color: #333;
+        }
+        .human-performance .scores div {
+            margin-bottom: 2px;
+        }
+        .human-performance .scores div:last-child {
+            margin-bottom: 0;
+        }
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .leaderboard-table th, .leaderboard-table td {
+            border: 1px solid #dee2e6;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .leaderboard-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            font-size: 12px;
+            color: #495057;
+            white-space: nowrap;
+            line-height: 1.3;
+        }
+        .leaderboard-table td {
+            background-color: #fff;
+            color: #212529;
+        }
+        .rank-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: #fff;
+            font-weight: bold;
+            margin: auto;
+        }
+        .rank-1 { background-color: #ffc107; }
+        .rank-2 { background-color: #c0c0c0; }
+        .rank-3 { background-color: #cd7f32; }
+        .rank-default { background-color: #6c757d; }
+        .submission-cell .name {
+            font-weight: 600;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .submission-cell .name:hover {
+            text-decoration: underline;
+        }
+        .submission-cell .details {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 3px;
+        }
+        .leaderboard-table td:nth-child(3),
+        .leaderboard-table td:nth-child(4),
+        .leaderboard-table td:nth-child(5),
+        .leaderboard-table td:nth-child(6),
+        .leaderboard-table td:nth-child(7),
+        .leaderboard-table td:nth-child(8),
+        .leaderboard-table td:nth-child(9),
+        .leaderboard-table td:nth-child(10),
+        .leaderboard-table td:nth-child(11) {
+            text-align: right;
+            font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 13px;
+        }
+        .leaderboard-table th:nth-child(1),
+        .leaderboard-table th:nth-child(2) { text-align: left; }
+        .leaderboard-table th:nth-child(3),
+        .leaderboard-table th:nth-child(4),
+        .leaderboard-table th:nth-child(5),
+        .leaderboard-table th:nth-child(6),
+        .leaderboard-table th:nth-child(7),
+        .leaderboard-table th:nth-child(8),
+        .leaderboard-table th:nth-child(9),
+        .leaderboard-table th:nth-child(10),
+        .leaderboard-table th:nth-child(11) {
+            text-align: right;
+        }
+        .tab-content {
+            display: none;
+            padding-top: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-content h2 {
+            font-size: 20px; margin-bottom: 15px; color: #333;
+            border-bottom: 1px solid #eee; padding-bottom: 10px;
+        }
+        .tab-content h3 {
+            font-size: 16px; margin-top: 20px; margin-bottom: 10px; color: #555;
+        }
+        .tab-content p, .tab-content ul {
+            font-size: 14px; line-height: 1.6; color: #454545; margin-bottom: 10px;
+        }
+        .tab-content ul { padding-left: 20px; }
+        .tab-content code {
+            background-color: #f0f0f0; padding: 2px 5px; border-radius: 3px;
+            font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        .tab-content a { color: #007bff; }
+
+        .chart-container { /* Added style for the chart container */
+            width: 90%; /* Adjusted width for better fit */
+            max-width: 1000px; /* Max width to prevent it from becoming too large */
+            margin: 40px auto; /* Increased top margin, auto for horizontal centering */
+            padding: 20px; /* Padding inside the container */
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #ffffff; /* Explicit white background */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Subtle shadow */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-title">
+                <div>
+                    <h1><a href="https://askforalfred.com">ALFRED Leaderboard</a></h1>
+                    <p>
+                        ALFRED (Action Learning From Realistic Environments and Directives), is a new benchmark for learning a mapping from natural language instructions and egocentric vision to sequences of actions for household tasks. Long composition rollouts with non-reversible state changes are among the phenomena we include to shrink the gap between research benchmarks and real-world applications.
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#" class="tab-link active" data-tab="public-submissions">Public Submissions</a></li>
+                <li><a href="#" class="tab-link" data-tab="getting-started">Getting Started</a></li>
+                <li><a href="#" class="tab-link" data-tab="about">About</a></li>
+            </ul>
+        </nav>
+
+        <div id="public-submissions" class="tab-content active">
+            <div class="human-performance">
+                <div class="title">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88a9.947 9.947 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20z"/></svg>
+                    Human Performance
+                </div>
+                <div class="scores">
+                    <div>Unseen Success Rate: 0.9100</div>
+                    <div>Unseen PLWSR: 0.8580</div>
+                    <div>Unseen GC: 0.9450</div>
+                    <div>Unseen PLW GC Success Rate: 0.8760</div>
+                </div>
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Submission</th>
+                        <th>Created</th>
+                        <th>Unseen<br>Success Rate</th>
+                        <th>Seen<br>Success Rate</th>
+                        <th>Seen<br>PLWSR</th>
+                        <th>Unseen<br>PLWSR</th>
+                        <th>Seen<br>GC</th>
+                        <th>Unseen<br>GC</th>
+                        <th>Seen<br>PLW GC Success Rate</th>
+                        <th>Unseen<br>PLW GC Success Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                </tbody>
+            </table>
+            <div class="chart-container">
+                <canvas id="unseenSuccessRateChart"></canvas>
+            </div>
+        </div>
+
+        <div id="getting-started" class="tab-content">
+            <h2>Getting Started with ALFRED</h2>
+            <h3>Getting the Data</h3>
+            <p>See <a href="https://github.com/askforalfred/alfred">this guide</a> for downloading the dataset, running models, and data-augmentation. Also see the <a href="https://arxiv.org/abs/1912.01734">paper</a> for a description of the challenge.</p>
+            <h3>Scoring</h3>
+            <p>We use a model-agnostic evaluation process to measure the performance of your trained agent. See the guide for running a model on the test sets to create a JSON dump of action-sequences executed by the agent. These action-sequences are replayed on the leaderboard server to compute the performance metrics.</p>
+            <p>We will report the following metrics:</p>
+            <h4>Seen and Unseen Splits (separate)</h4>
+            <ul>
+                <li><strong>success_rate:</strong> overall task goal completion</li>
+                <li><strong>path_length_weighted_success_rate:</strong> overall task goal completion weighted by the number of steps in the gold trajectory</li>
+                <li><strong>postcondition_success_rate:</strong> number of partial goal conditions completed by the agent</li>
+                <li><strong>path_length_weighted_postcondition_success_rate:</strong> number of partial goal conditions completed weighted by the number of steps taken in the gold trajectory</li>
+            </ul>
+            <h3>Predictions Format</h3>
+            <p>Run your model on test seen and unseen sets, and create an action-sequence dump of your agent:</p>
+            <p><code>$ python models/eval/leaderboard.py --model_path &lt;model_path&gt;/best_seen.pth --model models.model.seq2seq_im_mask --data data/json_feat_2.1.0 --gpu --num_threads 5</code></p>
+            <p>This will create a JSON file, e.g. <code>task_results_20191218_081448_662435.json</code>, inside the <code>&lt;model_path&gt;</code> folder. Email this file to <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a>, preferrably through a storage link on a platform like Google Drive, Dropbox etc.</p>
+            <h3>Rules</h3>
+            <ol>
+                <li>Try to solve the ALFRED dataset: all submissions must be attempts to solve the ALFRED dataset.</li>
+                <li>Do not exploit the metadata in test-scenes: you should solve the vision-language grounding problem without misusing the metadata from THOR. You are only allowed to use RGB and language instructions (goal & step-by-step) as input for your agents. You cannot use additional depth, mask, metadata info etc. from the simulator on Test Seen and Test Unseen scenes. However, during training you are allowed to use additional info for auxiliary losses etc.</li>
+                <li>Answer the following questions: a. Did you use additional sensory information from THOR as input, eg: depth, segmentation masks, class masks, panoramic images etc. during test-time? If so, please report them. b. Did you use the alignments between step-by-step instructions and expert action-sequences for training or testing? (no by default; the instructions are serialized into a single sentence)</li>
+                <li>Share who you are: you must provide a team name and affiliation.</li>
+                <li>(Optional) Share how you solved it: if possible, share information about how the task was solved. Link an academic paper or code repository if public.</li>
+                <li>Only submit your own work: you may evaluate any model on the validation set, but must only submit your own work for evaluation against the test set.</li>
+            </ol>
+            <h3>Example Models</h3>
+            <p>We provide a <a href="https://github.com/askforalfred/alfred/tree/master/models#pre-trained-model">pre-trained Seq2Seq+PM (Both) model</a> described in the paper.</p>
+            <h3>Submitting to the Leaderboard</h3>
+            <p>Only one submission is allowed every <b>7 days</b>. All submissions will be made public. Please do not create anonymous emails for multiple submissions. Use the val set to iterate on your agent.</p>
+            <h3>Getting Help</h3>
+            <p>If you need any help, please email us at <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a> and say you're asking about leaderboard ALFRED. Please include a submission URL if you are asking about a specific submission.</p>
+        </div>
+
+        <div id="about" class="tab-content">
+            <h2>Contact</h2>
+            <p>If you need any help, please email us at <a href="mailto:askforalfred@googlegroups.com">askforalfred@googlegroups.com</a>. Please be specific about your query.</p>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+<script>
+const csvData = `Submission,Created,Unseen Success Rate,Seen Success Rate,Seen PLWSR,Unseen PLWSR,Seen GC,Unseen GC,Seen PLW GC Success Rate,Unseen PLW GC Success Rate,Affiliation
+EPO,02/02/2024,0.6235,0.6479,0.5692,0.5199,0.7230,0.6752,0.6620,0.6415,"Anonymous until acceptance"
+RoboGPT,12/24/2023,0.6200,0.5992,0.2997,0.3361,0.6783,0.7209,0.3544,0.3866,"Anonymous until paper submiss..."
+SCOUT,03/14/2025,0.6079,0.6509,0.5242,0.4682,0.7288,0.6860,0.5829,0.5257,"Anonymous until paper submiss..."
+RLEF,12/15/2023,0.6069,0.6025,0.5287,0.5031,0.6827,0.6657,0.6366,0.6329,"Anonymous until acceptance"
+CSL-HDP(version1),12/08/2023,0.5965,0.5903,0.3030,0.3300,0.6761,0.7091,0.3568,0.3856,"Anonymous until paper submiss..."
+LOAT,12/27/2023,0.5814,0.5988,0.3048,0.3105,0.6793,0.6872,0.3555,0.3664,"NA"
+ThinkBot-unseen,11/16/2023,0.5782,0.0000,0.0000,0.2693,0.0000,0.6775,0.0000,0.3073,""
+HDP,12/07/2023,0.5755,0.6021,0.3121,0.3142,0.6728,0.6870,0.3663,0.3670,"Anonymous until paper submiss..."
+DISCO,03/01/2024,0.5655,0.5959,0.4067,0.3651,0.6606,0.6687,0.4747,0.4452,"Anonymous until paper submiss..."
+RLEF,11/26/2023,0.5634,0.5571,0.4690,0.4758,0.6512,0.6274,0.5889,0.5944,"Anonymous until acceptance"
+DISCO,11/05/2023,0.5477,0.5805,0.3966,0.3550,0.6496,0.6556,0.4659,0.4364,"Anonymous until paper submiss..."
+REIF,06/25/2023,0.5083,0.4500,0.2011,0.2306,0.4881,0.5157,0.2287,0.2518,"lil from TongJi University of..."
+"[EAI23] ECLAIR",06/11/2023,0.5036,0.5258,0.2309,0.2159,0.6098,0.6140,0.2710,0.2531,"Jinyeon Kim, Byeonghwi Kim, C..."
+"ESP - 2",04/16/2024,0.4859,0.5114,0.2328,0.1554,0.6186,0.5984,0.2773,0.1898,"cz from National University O..."
+ESP,04/05/2024,0.4853,0.0000,0.0000,0.1551,0.0000,0.5982,0.0000,0.1898,"cz from National University O..."
+Container,05/08/2023,0.4750,0.3500,0.1297,0.1852,0.4677,0.4811,0.1458,0.2050,"lil from TongJi University of..."
+DRL,09/29/2023,0.4722,0.5192,0.2463,0.2162,0.6111,0.5741,0.3037,0.2680,"Anonymous until paper submiss..."
+Prompter,08/30/2022,0.4572,0.5323,0.2581,0.2076,0.6343,0.5876,0.3072,0.2622,"Yuki Inoue, Hiroki Ohashi"
+"Prompter, no slice replay",02/24/2023,0.4532,0.5117,0.2512,0.2079,0.6022,0.5657,0.3021,0.2580,"Anonymous until paper submiss..."
+"high level only",04/03/2024,0.4369,0.0000,0.0000,0.1392,0.0000,0.5531,0.0000,0.1737,"zac"
+FLARE,03/05/2024,0.4088,0.4005,0.1668,0.1814,0.4884,0.5172,0.2131,0.2278,"Taewoong Kim, Byeonghwi Kim,..."
+HIA-High-Goal-Only,02/19/2023,0.3852,0.4504,0.2503,0.1978,0.5320,0.4771,0.3084,0.2450,"Anonymous until paper submiss..."
+EI2,02/23/2024,0.3819,0.4273,0.1813,0.1597,0.5055,0.4871,0.2138,0.1939,"Anonymous"
+"[EAI22] EPA",05/12/2022,0.3607,0.3996,0.0256,0.0292,0.4414,0.3954,0.0347,0.0391,"Anonymous"
+Obstacle_film,12/13/2022,0.3583,0.2833,0.0904,0.1362,0.3882,0.3994,0.1328,0.1620,"lil from the university of to..."
+zero-shot-LLM,09/08/2024,0.3564,0.4031,0.1631,0.1406,0.4935,0.4693,0.1971,0.1789,"ZJL"
+"[EAI22] LGS-RPA",02/09/2022,0.3541,0.4005,0.2128,0.1568,0.4866,0.4524,0.2897,0.2276,"Anonymous until paper submiss..."
+LGS-RPA,01/02/2022,0.3407,0.3979,0.2014,0.1462,0.4610,0.4313,0.2613,0.2006,"Anonymous until paper submiss..."
+alfred-bot,03/13/2023,0.3224,0.0000,0.0000,0.1168,0.0000,0.4442,0.0000,0.1449,"Guanxing Lu"
+726,11/10/2022,0.2917,0.2833,0.0720,0.1189,0.3727,0.3711,0.1017,0.1487,"Anonymous until paper submiss..."
+"[EAI22] Sudoer-SRCB-RMU",05/29/2022,0.2830,0.2897,0.0824,0.0724,0.3633,0.3679,0.1203,0.1202,"Haoyu Liu, Hongkai He, Yang L..."
+"FILM - a new semantic policy instance",02/20/2022,0.2780,0.2883,0.1127,0.1132,0.3955,0.3852,0.1559,0.1513,"So Yeon Tiffany Min, Pradeep"
+FILM,09/20/2021,0.2649,0.2767,0.1123,0.1055,0.3851,0.3637,0.1506,0.1430,"Anonymous until paper accepta..."
+ABP,07/18/2023,0.2616,0.5421,0.4162,0.1668,0.6003,0.3642,0.4822,0.2569,"Byeonghwi Kim, Suvaansh Bhamb..."
+LEBP,03/01/2022,0.2426,0.2553,0.0645,0.0618,0.3235,0.3049,0.0999,0.0989,"Anonymous"
+AMSLAM,09/30/2021,0.2348,0.2948,0.0328,0.0236,0.4088,0.3464,0.0556,0.0463,"Zhiwei Jia, Kaixiang Lin, Yiz..."
+FIQA,06/11/2022,0.2218,0.0000,0.0000,0.0904,0.0000,0.3375,0.0000,0.1258,"Svyatoslav Pchelintsev, Chris..."
+HLSM-MAT,12/21/2021,0.2184,0.3301,0.0942,0.0613,0.4365,0.3241,0.1468,0.1059,"Shintaro Ishikawa and Komei S..."
+HLSM,10/10/2021,0.2027,0.2994,0.0874,0.0555,0.4121,0.3031,0.1458,0.0999,"Valts Blukis, Chris Paxton, D..."
+ECL,06/10/2022,0.1792,0.1879,0.0867,0.0745,0.2798,0.2775,0.1274,0.1152,"Mingyu Ding, Yan Xu, Zhenfang..."
+FILM_smart,12/28/2022,0.1772,0.0000,0.0000,0.0737,0.0000,0.2678,0.0000,0.0989,"Guanxing Lu"
+CLET,11/08/2021,0.1724,0.1553,0.1061,0.1114,0.2229,0.2805,0.2065,0.2511,"SRCB"
+"VLNBERT-L + M-Track",03/22/2022,0.1629,0.2479,0.1388,0.0766,0.3335,0.2260,0.1948,0.1318,"Chan Hee Song, Jihyung Kil, T..."
+"[EAI21] - HLSM",06/07/2021,0.1629,0.2511,0.0669,0.0434,0.3579,0.2724,0.1153,0.0845,"Valts Blukis, Chris Paxton, D..."
+"[EAI21] ABP",06/04/2021,0.1543,0.4455,0.0388,0.0108,0.5113,0.2476,0.0492,0.0222,"Byeonghwi Kim, Suvaansh Bhamb..."
+"[EAI21] HiTUT",01/30/2021,0.1387,0.2127,0.1110,0.0586,0.2997,0.2031,0.1741,0.1151,"Yichi Zhang and Joyce Chai (U..."
+"LSTM-L + M-Track",03/26/2022,0.1328,0.2205,0.1283,0.0625,0.3048,0.2020,0.1953,0.1239,"Chan Hee Song, Jihyung Kil, T..."
+"[EAI21] LWIT",01/04/2021,0.0942,0.3092,0.2590,0.0560,0.4053,0.2091,0.3676,0.1634,"Van-Quang Nguyen, Masanori Su..."
+"Episodic Transformer (E.T.)",02/22/2021,0.0857,0.3842,0.2778,0.0410,0.4544,0.1856,0.3493,0.1146,"Alexander Pashevich, Cordelia..."
+"EmBERT [36_18_18_18-horizon0] + nav_receptacle",06/15/2021,0.0752,0.3177,0.2341,0.0358,0.3927,0.1633,0.3132,0.1047,"Alessandro Suglia, Qiaozi Gao..."
+ORL,11/15/2023,0.0656,0.0000,0.0000,0.0389,0.0409,0.1253,0.0330,0.0894,"Jack Zhu, Zhengxin Wang @KUST"
+LAV,05/10/2021,0.0638,0.1335,0.0631,0.0312,0.2321,0.1727,0.1318,0.1047,"Kolby Nottingham, Litian Lian..."
+"EmBERT [36_18_18_18-horizon0]",06/27/2021,0.0606,0.3610,0.2675,0.0294,0.4219,0.1479,0.3491,0.0928,"Anonymous - Currently Under D..."
+"[EAI 21] SRCB-sudoer",06/07/2021,0.0562,0.2134,0.1479,0.0273,0.2767,0.1371,0.2148,0.0934,"HaoyuLiu, XingruiWang and Yan..."
+holiday,06/01/2021,0.0536,0.2108,0.1421,0.0269,0.2709,0.1296,0.2126,0.0889,"kids"
+MOCA,10/26/2020,0.0530,0.2205,0.1510,0.0272,0.2829,0.1428,0.2205,0.0999,"Kunal Pratap Singh, Suvaansh..."
+SRCB-sudoer,03/10/2021,0.0530,0.2146,0.1472,0.0272,0.2771,0.1425,0.2171,0.0999,"A test"
+"[EAI 2021] EmBERT",06/06/2021,0.0505,0.3148,0.2436,0.0217,0.3840,0.1291,0.3263,0.0887,"Anonymous - Currently Under D..."
+"ECCV 2020 Winner",08/01/2020,0.0445,0.1239,0.0820,0.0224,0.2068,0.1234,0.1879,0.0944,"Van-Quang Nguyen; Takayuki Ok..."
+EmBERT,05/27/2021,0.0314,0.1940,0.1434,0.0129,0.2745,0.1149,0.2210,0.0719,"Anonymous - Currently Under D..."
+"Baseline Seq2Seq + Progress Monitoring + Two stage mask prediction",07/22/2020,0.0150,0.0541,0.0251,0.0070,0.1232,0.0808,0.0827,0.0520,"Singh, Bhambri, Kim, Choi (GI..."
+"ALFRED Speaks - Augmented Agent",10/20/2020,0.0085,0.0385,0.0150,0.0036,0.0887,0.0768,0.0552,0.0431,"Anonymous"
+"Baseline + ImprovedMask",07/29/2020,0.0066,0.0385,0.0207,0.0032,0.1018,0.0798,0.0757,0.0551,"personal"
+baseline,07/10/2020,0.0059,0.0365,0.0202,0.0019,0.0851,0.0714,0.0533,0.0410,"DeepblueAl"
+ALFS2S,03/20/2024,0.0053,0.0398,0.0251,0.0024,0.0877,0.0721,0.0640,0.0447,"Anonymous"
+"Baseline Seq2Seq+PM (both)",03/28/2020,0.0039,0.0398,0.0202,0.0008,0.0942,0.0703,0.0627,0.0426,"Shridhar et. al (UW)"
+baseline,07/06/2020,0.0039,0.0359,0.0161,0.0006,0.0889,0.0690,0.0618,0.0421,"personal"
+"baseline v2",07/17/2020,0.0033,0.0150,0.0071,0.0008,0.0605,0.0695,0.0383,0.0401,"DeepblueAl"
+mytest_raw,05/02/2024,0.0026,0.0065,0.0030,0.0006,0.0454,0.0666,0.0324,0.0409,"lixiaodng from shandong unive..."
+Baseline_v2,08/05/2020,0.0026,0.0033,0.0007,0.0005,0.0453,0.0690,0.0316,0.0413,"Personal"
+Seq2Seq,10/13/2022,0.0021,0.0000,0.0000,0.0006,0.0402,0.0633,0.0312,0.0435,"Guanxing Lu"
+test,08/21/2020,0.0020,0.0027,0.0009,0.0006,0.0463,0.0690,0.0333,0.0458,"personal"
+Baseline,08/04/2020,0.0020,0.0027,0.0009,0.0006,0.0463,0.0690,0.0333,0.0458,"personal"
+baseline,07/22/2020,0.0020,0.0065,0.0013,0.0007,0.0479,0.0680,0.0279,0.0418,"Muqiao Yang"
+baseline_bronze,07/29/2020,0.0020,0.0000,0.0000,0.0008,0.0390,0.0663,0.0311,0.0453,"personal"
+DDDDDDD,07/19/2020,0.0020,0.0000,0.0000,0.0007,0.0395,0.0665,0.0283,0.0422,"DDD"
+Baseline_Test_Unseen,08/04/2020,0.0020,0.0000,0.0000,0.0007,0.0395,0.0671,0.0298,0.0436,"Navid (Personal)"
+submission_GRN2,07/23/2020,0.0020,0.0000,0.0000,0.0007,0.0393,0.0668,0.0287,0.0424,"personal"
+baseline_ggg,07/26/2020,0.0020,0.0000,0.0000,0.0001,0.0390,0.0663,0.0232,0.0357,"personal"
+test_baseline_smr,07/28/2020,0.0020,0.0000,0.0000,0.0008,0.0390,0.0663,0.0311,0.0453,"personal"
+submission_GRN,07/15/2020,0.0020,0.0000,0.0000,0.0000,0.0390,0.0663,0.0123,0.0196,"personal"
+test-SLAM,09/15/2021,0.0020,0.0000,0.0000,0.0008,0.0390,0.0663,0.0306,0.0452,"Anonymous"
+ThinkBot_seen,11/16/2023,0.0000,0.6269,0.3202,0.0000,0.7164,0.0000,0.3701,0.0000,"Anonymous until paper submiss..."`;
+
+    const rows = csvData.trim().split('\n');
+    const headerLine = rows.shift();
+    const headers = headerLine.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(h => h.replace(/^"|"$/g, '').trim());
+    const tbody = document.getElementById('leaderboard-body');
+
+    const data = rows.map(row => {
+        const values = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(v => v.replace(/^"|"$/g, '').trim());
+        const entry = {};
+        headers.forEach((header, index) => {
+            entry[header] = values[index];
+        });
+        return entry;
+    }).sort((a, b) => parseFloat(b['Unseen Success Rate']) - parseFloat(a['Unseen Success Rate']));
+
+    const floatColumns = [
+        'Unseen Success Rate', 'Seen Success Rate', 'Seen PLWSR', 'Unseen PLWSR',
+        'Seen GC', 'Unseen GC', 'Seen PLW GC Success Rate', 'Unseen PLW GC Success Rate'
+    ];
+    const maxValues = {};
+
+    floatColumns.forEach(column => {
+        let max = -Infinity;
+        data.forEach(entry => {
+            const value = parseFloat(entry[column]);
+            if (!isNaN(value) && value > max) {
+                max = value;
+            }
+        });
+        maxValues[column] = max;
+    });
+
+    data.forEach((entry, index) => {
+        const rank = index + 1;
+        const tr = document.createElement('tr');
+        const tdRank = document.createElement('td');
+        const rankDiv = document.createElement('div');
+        rankDiv.classList.add('rank-cell');
+        if (rank === 1) rankDiv.classList.add('rank-1');
+        else if (rank === 2) rankDiv.classList.add('rank-2');
+        else if (rank === 3) rankDiv.classList.add('rank-3');
+        else rankDiv.classList.add('rank-default');
+        rankDiv.textContent = rank;
+        tdRank.appendChild(rankDiv);
+        tr.appendChild(tdRank);
+
+        const tdSubmission = document.createElement('td');
+        tdSubmission.classList.add('submission-cell');
+        const submissionName = document.createElement('a');
+        submissionName.classList.add('name');
+        submissionName.href = "#";
+        submissionName.textContent = entry['Submission'];
+        tdSubmission.appendChild(submissionName);
+        const detailsDiv = document.createElement('div');
+        detailsDiv.classList.add('details');
+        detailsDiv.textContent = entry['Affiliation'] || '';
+        tdSubmission.appendChild(detailsDiv);
+        tr.appendChild(tdSubmission);
+
+        const tdCreated = document.createElement('td');
+        tdCreated.textContent = entry['Created'];
+        tr.appendChild(tdCreated);
+
+        const formatNumber = (numStr) => {
+            const num = parseFloat(numStr);
+            return isNaN(num) ? 'N/A' : num.toFixed(4);
+        };
+
+        const createDataCell = (columnName) => {
+            const td = document.createElement('td');
+            const rawValue = entry[columnName];
+            const numValue = parseFloat(rawValue);
+            const formattedValue = formatNumber(rawValue);
+            if (floatColumns.includes(columnName) && !isNaN(numValue) && numValue === maxValues[columnName]) {
+                td.innerHTML = `<strong>${formattedValue}</strong>`;
+            } else {
+                td.textContent = formattedValue;
+            }
+            tr.appendChild(td);
+        };
+
+        createDataCell('Unseen Success Rate');
+        createDataCell('Seen Success Rate');
+        createDataCell('Seen PLWSR');
+        createDataCell('Unseen PLWSR');
+        createDataCell('Seen GC');
+        createDataCell('Unseen GC');
+        createDataCell('Seen PLW GC Success Rate');
+        createDataCell('Unseen PLW GC Success Rate');
+
+        if (tbody) {
+             tbody.appendChild(tr);
+        }
+    });
+
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const tabId = link.getAttribute('data-tab');
+            tabLinks.forEach(l => l.classList.remove('active'));
+            tabContents.forEach(tc => tc.classList.remove('active'));
+            link.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // === CHART CODE STARTS HERE ===
+    const createChart = () => {
+        const chartDataSortedByDate = [...data]
+            .map(entry => ({
+                date: new Date(entry['Created']),
+                value: parseFloat(entry['Unseen Success Rate']),
+                name: entry['Submission']
+            }))
+            .filter(p => p.date instanceof Date && !isNaN(p.date.getTime()) && !isNaN(p.value))
+            .sort((a, b) => a.date - b.date);
+
+        if (chartDataSortedByDate.length === 0) {
+            console.log("No data available to create the chart.");
+            const chartCanvas = document.getElementById('unseenSuccessRateChart');
+            if (chartCanvas) {
+                const ctx = chartCanvas.getContext('2d');
+                ctx.font = "16px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("No data available for chart.", chartCanvas.width / 2, chartCanvas.height / 2);
+            }
+            return;
+        }
+
+        const submissionPoints = chartDataSortedByDate.map(entry => ({
+            x: entry.date,
+            y: entry.value
+        }));
+
+        let runningBestDataPoints = [];
+        let currentMaximum = 0;
+        chartDataSortedByDate.forEach(point => {
+            if (point.value > currentMaximum) {
+                currentMaximum = point.value;
+            }
+            runningBestDataPoints.push({ x: point.date, y: currentMaximum });
+        });
+
+        const humanUnseenSuccessRate = 0.9100;
+        let humanPerformanceLineData = [];
+        const firstDate = chartDataSortedByDate[0].date;
+        const lastDate = chartDataSortedByDate[chartDataSortedByDate.length - 1].date;
+        const chartEndDate = new Date('2025-01-01');
+        const finalMaxDateOnChart = new Date(Math.max(lastDate.getTime(), chartEndDate.getTime()));
+
+        humanPerformanceLineData = [
+            { x: firstDate, y: humanUnseenSuccessRate },
+            { x: finalMaxDateOnChart, y: humanUnseenSuccessRate }
+        ];
+
+        const ctx = document.getElementById('unseenSuccessRateChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Human Unseen Success Rate',
+                        data: humanPerformanceLineData,
+                        borderColor: 'rgba(255, 165, 0, 1)',
+                        type: 'line',
+                        fill: false,
+                        pointRadius: 0,
+                        borderWidth: 2,
+                        order: 1
+                    },
+                    {
+                        label: 'Running Best',
+                        data: runningBestDataPoints,
+                        borderColor: 'rgba(255, 193, 7, 1)',
+                        type: 'line',
+                        stepped: 'before',
+                        fill: false,
+                        pointRadius: 0,
+                        borderWidth: 2,
+                        order: 2
+                    },
+                    {
+                        label: 'Submissions',
+                        data: submissionPoints,
+                        backgroundColor: 'rgba(0, 0, 139, 0.7)',
+                        borderColor: 'rgba(0, 0, 139, 1)',
+                        pointStyle: 'diamond',
+                        radius: 6,
+                        type: 'scatter',
+                        order: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Unseen Success Rate Over Time',
+                        font: { size: 18, weight: 'bold' },
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    legend: { position: 'top', align: 'end'},
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) { label += context.parsed.y.toFixed(4); }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'year',
+                            tooltipFormat: 'MM/dd/yyyy',
+                            displayFormats: { year: 'MM/dd/yyyy' }
+                        },
+                        title: { display: true, text: 'Submission Date', font: { size: 14, weight: 'bold' }},
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 1.0,
+                        title: { display: true, text: 'Unseen Success Rate', font: { size: 14, weight: 'bold' }},
+                        ticks: {
+                            stepSize: 0.20,
+                            callback: function(value) { return value.toFixed(2); }
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+    if (typeof data !== 'undefined' && data.length > 0) {
+        createChart();
+    } else {
+        console.warn("Chart not created because 'data' is not available or empty.");
+        const chartCanvas = document.getElementById('unseenSuccessRateChart');
+        if (chartCanvas) {
+            const ctx = chartCanvas.getContext('2d');
+            ctx.font = "16px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("No data available for chart.", chartCanvas.width / 2, chartCanvas.height / 2);
+        }
+    }
+    // === CHART CODE ENDS HERE ===
+</script>
+</body>
+</html>
